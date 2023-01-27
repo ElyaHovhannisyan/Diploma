@@ -1,0 +1,160 @@
+body
+{
+  padding: 0;
+  margin: 0;
+  font-family: 'Tenor Sans', sans-serif;
+}
+
+.header_container
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #002147;
+  font-size: 10px;
+  color: #f0f0f3;
+}
+.header_logo
+{
+  margin-top: 30px;
+}
+
+.header_container h1
+{
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-weight: normal;
+}
+.header_bottom
+{
+  background-color: #002147;
+  box-sizing: border-box;
+  padding: 10px 50px 10px 50px;
+  box-shadow: 0 9px 13px 7px rgb(0 0 0 / 33%);
+  display: flex;
+}
+.header_form{
+  width: 500px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white; 
+  border-radius: 20px;
+}
+#search{
+  width: 80%;
+  height: 90%;
+  border-radius: 20px;
+  font-size: 17px;
+  padding-left: 30px;
+  border: none;
+  outline: none;
+}
+.header_form img
+{
+  cursor: pointer;
+}
+.sign_up
+{
+  height:45px;
+  padding: 0 24px;
+  border: none;
+  background-color: white;
+  border-radius: 20px;
+  color: #002147;
+  margin-left: 30px;
+  font-size: 17px;
+  cursor: pointer;
+}
+.login
+{
+  color: white;
+  vertical-align: middle;
+  line-height: 45px;
+}
+.header_bottom_right
+{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  font-size: 17px;
+}
+.book_img
+{
+  background-image: url(../img/book.jpg);
+  width: 100%;
+  min-height: 600px;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; 
+  text-align: center;
+  position: relative;
+}
+
+.footer-distributed{
+	background: #002147;
+  box-shadow: 0 -12px 13px 7px rgb(0 0 0 / 33%);
+	box-sizing: border-box;
+	width: 100%;
+  min-height: 159px;
+  display: flex;
+}
+
+
+.footer_left
+{
+  display: flex;
+  justify-content: center;
+  width: 30%;
+  align-items: center;
+  flex-direction: column;
+}
+.footer_left a
+{
+  color: #f0f0f3;
+}
+.footer_left h2
+{
+  font-weight: normal;
+  color: #f0f0f3;
+  font-size: 17px;
+  margin: 0;
+}
+.social_media
+{
+  margin-top: 10px;
+}
+.social_media a
+{
+  margin-right: 15px;
+}
+.footer_mid{
+  display: flex;
+  width: 40%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.footer_mid h2
+{
+  font-weight: normal;
+  color: #f0f0f3;
+  font-size: 10px;
+}
+.footer_right
+{
+  display: flex;
+  justify-content: center;
+  width: 30%;
+  align-items: center;
+  flex-direction: column;
+  color: #f0f0f3;
+}
+.footer_right p
+{
+  margin: 0 0 10px 0;
+}
