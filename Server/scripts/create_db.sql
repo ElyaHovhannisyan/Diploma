@@ -25,7 +25,7 @@ create table if not exists Subjects(
 );
 
 INSERT INTO Subjects(name)
-VALUES ("C#"), ("QA"), ("Java");
+VALUES ("C#"), ("QA"), ("Java"), ("DataBase");
 
 create table if not exists Books(
    id INT NOT NULL AUTO_INCREMENT,

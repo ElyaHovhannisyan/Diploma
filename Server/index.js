@@ -1,15 +1,17 @@
 const express = require("express");
-const { sequelize } = require("./dbConfig");
-const { User } = require("./Models/User");
-const { Order } = require("./Models/Order");
-const { Cart } = require("./Models/Cart");
-const { Cart_Assignment } = require("./Models/Cart_Assignment");
-const { Book } = require("./Models/Book");
-const { Subject } = require("./Models/Subject");
-const { Lecturer } = require("./Models/Lecturer");
-const { Lecturer_info } = require("./Models/Lecturer_info");
-const { Lesson } = require("./Models/Lesson");
+const apiRouter = require("./Routes/api");
+const cors = require("cors");
+require("dotenv").config();
 
+const a = require("./Models");
+
+const port = process.env.PORT || 8080;
 const app = express();
-sequelize.sync({ alter: false, force: false });
-app.listen(3001);
+
+app.use(express.json());
+app.use(cors());
+app.use("/", apiRouter);
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}.`);
+});
