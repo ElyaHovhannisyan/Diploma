@@ -15,11 +15,11 @@ const Book = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    author_name: {
+    authorName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    author_surname: {
+    authorSurname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -35,9 +35,9 @@ const Book = sequelize.define(
 
     link: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
-    sub_id: {
+    SubjectId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -53,7 +53,7 @@ const Book = sequelize.define(
   }
 );
 
-Subject.hasMany(Book, { foreignKey: "sub_id" });
+Subject.hasMany(Book, { foreignKey: "SubjectId" });
 Book.belongsTo(Subject);
 
 module.exports = { Book };

@@ -1,5 +1,7 @@
 const DataTypes = require("sequelize");
 const { sequelize } = require("../dbConfig");
+const { Student } = require("./Students");
+const { Lecturer } = require("./Lecturer");
 
 const User = sequelize.define(
   "Users",
@@ -9,6 +11,22 @@ const User = sequelize.define(
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
+    },
+    StudentId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "Students",
+        key: "id",
+      },
+    },
+    LecturerId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "Lecturers",
+        key: "id",
+      },
     },
     username: {
       type: DataTypes.STRING,
@@ -24,10 +42,10 @@ const User = sequelize.define(
       allowNull: false,
     },
 
-    // role: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true,
-    // },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     createdAt: false,
@@ -35,5 +53,8 @@ const User = sequelize.define(
     timestamps: false,
   }
 );
-
+Student.hasOne(User, { foreignKey: "StudentId" });
+User.belongsTo(Student);
+Lecturer.hasOne(User, { foreignKey: "LecturerId" });
+User.belongsTo(Lecturer);
 module.exports = { User };

@@ -11,7 +11,7 @@ const Order = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    user_id: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -19,7 +19,7 @@ const Order = sequelize.define(
         key: "id",
       },
     },
-    book_number: {
+    bookNumber: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
@@ -32,7 +32,7 @@ const Order = sequelize.define(
   }
 );
 
-User.hasMany(Order, { foreignKey: "user_id" });
+User.hasMany(Order, { foreignKey: "UserId" });
 Order.belongsTo(User);
 
 module.exports = { Order };

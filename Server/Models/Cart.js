@@ -11,7 +11,7 @@ const Cart = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    user_id: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -27,7 +27,7 @@ const Cart = sequelize.define(
   }
 );
 
-User.hasOne(Cart, { foreignKey: "user_id" });
+User.hasOne(Cart, { foreignKey: "UserId" });
 Cart.belongsTo(User);
 
 module.exports = { Cart };

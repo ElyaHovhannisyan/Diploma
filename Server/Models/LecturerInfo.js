@@ -1,15 +1,24 @@
 const DataTypes = require("sequelize");
 const { sequelize } = require("../dbConfig");
 const { Subject } = require("./Subject");
+const { Lecturer } = require("./Lecturer");
 
-const Lesson = sequelize.define(
-  "Lessons",
+const LecturerInfo = sequelize.define(
+  "LecturerInfos",
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
+    },
+    LecturerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Lecturers",
+        key: "id",
+      },
     },
     SubjectId: {
       type: DataTypes.INTEGER,
@@ -19,14 +28,6 @@ const Lesson = sequelize.define(
         key: "id",
       },
     },
-    group: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    semester: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   },
   {
     createdAt: false,
@@ -34,6 +35,10 @@ const Lesson = sequelize.define(
     timestamps: false,
   }
 );
-Subject.hasMany(Lesson, { foreignKey: "SubjectId" });
-Lesson.belongsTo(Subject);
-module.exports = { Lesson };
+
+Lecturer.hasMany(LecturerInfo, { foreignKey: "LecturerId" });
+LecturerInfo.belongsTo(Lecturer);
+Subject.hasMany(LecturerInfo, { foreignKey: "SubjectId" });
+LecturerInfo.belongsTo(Subject);
+
+module.exports = { LecturerInfo };
