@@ -16,7 +16,6 @@ function Login() {
   };
   const handleUserLogin = (event) => {
     event.preventDefault();
-    console.log(login + " +++" + password);
     setLogin("");
     setPassword("");
   };

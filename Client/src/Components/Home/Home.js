@@ -21,8 +21,8 @@ function Home() {
         >
           Մուտք
         </NavLink>
-        <NavLink to="/sign_up">
-          <button className="sign_up"> Գրանցում </button>
+        <NavLink to="/register">
+          <button className="register"> Գրանցում </button>
         </NavLink>
       </div>
       <div className="book_img"></div>
