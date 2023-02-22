@@ -6,19 +6,24 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-const signup = async (req, res) => {
+const register = async (req, res) => {
   try {
     const user = await User.create({
       username: req.body.username,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
+      StudentId: req.body.StudentId,
+      LecturerId: req.body.LecturerId,
+      role: req.body.role,
     });
-
-    await Cart.create({ user_id: user.id });
+    await Cart.create({ UserId: user.id });
+    res.status(200).send("everything is ok");
   } catch (error) {
+    console.log("nnnnnnn\n");
+    console.log(error.message);
     res.status(500).send({ message: error.message });
   }
 };
 module.exports = {
-  signup,
+  register,
 };
