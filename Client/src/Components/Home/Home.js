@@ -1,17 +1,10 @@
 import "./Home.css";
 import { NavLink } from "react-router-dom";
-import search_icon from "../../img/icons8-search-20.png";
 
 function Home() {
   return (
     <>
       <div className="header_bottom">
-        <NavLink to="/search">
-          <button className="search">
-            <img src={search_icon} alt="icon"></img>
-            <span>Փնտրել․․․</span>
-          </button>
-        </NavLink>
         <NavLink
           to="/login"
           className="login"

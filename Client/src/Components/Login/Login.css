@@ -20,7 +20,7 @@ body
   margin-right: 5px;
 }
 
-.sign_up, .search
+.register
 {
   height:45px;
   padding: 0 24px;
@@ -32,10 +32,7 @@ body
   font-size: 17px;
   cursor: pointer;
 }
-.search p
-{
-  margin: 0;
-}
+
 .book_img
 {
   background-image: url(../../img/book.jpg);
@@ -61,7 +58,7 @@ body
 	left: 0;
 	right: 0;
 	width: 400px;
-	height: 400px;
+	/* height: 400px; */
 }
 .transparent p
 {

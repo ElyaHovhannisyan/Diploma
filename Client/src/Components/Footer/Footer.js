@@ -15,21 +15,34 @@ function Footer() {
       <div className="footer_left">
         <h2>Միացի՜ր պոլիտեխնիկին</h2>
         <div className="social_media">
-          <a href="https://www.facebook.com/polytech.am/" target="_blank">
+          <a
+            href="https://www.facebook.com/polytech.am/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <FontAwesomeIcon icon={faFacebook} />
           </a>
-          <a href="https://twitter.com/polytech_am/" target="_blank">
+          <a
+            href="https://twitter.com/polytech_am/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <FontAwesomeIcon icon={faTwitter} />
           </a>
-          <a href="https://www.instagram.com/polytech_armenia/" target="_blank">
+          <a
+            href="https://www.instagram.com/polytech_armenia/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <FontAwesomeIcon icon={faInstagram} />
           </a>
-          <a href="https://t.me/polytech_am/" target="_blank">
+          <a href="https://t.me/polytech_am/" target="_blank" rel="noreferrer">
             <FontAwesomeIcon icon={faTelegram} />
           </a>
           <a
             href="https://www.linkedin.com/school/polytech-armenia/"
             target="_blank"
+            rel="noreferrer"
           >
             <FontAwesomeIcon icon={faLinkedin} />
           </a>

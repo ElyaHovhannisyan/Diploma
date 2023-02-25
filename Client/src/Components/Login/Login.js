@@ -1,5 +1,4 @@
 import "./Login.css";
-import search_icon from "../../img/icons8-search-20.png";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
@@ -22,14 +21,8 @@ function Login() {
   return (
     <>
       <div className="header_bottom">
-        <NavLink to="/search">
-          <button className="search">
-            <img src={search_icon} alt="icon"></img>
-            <span>Փնտրել․․․</span>
-          </button>
-        </NavLink>
-        <NavLink to="/sign_up">
-          <button className="sign_up"> Գրանցում </button>
+        <NavLink to="/register">
+          <button className="register"> Գրանցում </button>
         </NavLink>
       </div>
       <div className="book_img">
