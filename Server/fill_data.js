@@ -11,6 +11,7 @@ const { Lesson } = require("./Models/Lesson");
 const subjects = [];
 const lecturers = [];
 const students = [];
+const books = [];
 
 let data = fs.readFileSync("./scripts/subjects.csv", "utf8");
 let lines = data.split("\n");
@@ -44,6 +45,19 @@ for (let i = 1; i < lines.length; i++) {
     email: fields[2],
   });
 }
+data = fs.readFileSync("./scripts/books.csv", "utf8");
+lines = data.split("\n");
+
+for (let i = 1; i < lines.length; i++) {
+  const fields = lines[i].split(", ");
+  books.push({
+    title: fields[0],
+    number: fields[1],
+    SubjectId: fields[2],
+    description: fields[3],
+    path: fields[4],
+  });
+}
 sequelize.sync({ alter: false, force: false }).then(() => {
   Subject.bulkCreate(subjects)
     .then(() => console.log("Data uploaded successfully"))
@@ -52,6 +66,9 @@ sequelize.sync({ alter: false, force: false }).then(() => {
     .then(() => console.log("Data uploaded successfully"))
     .catch((err) => console.error(err));
   Lecturer.bulkCreate(lecturers)
+    .then(() => console.log("Data uploaded successfully"))
+    .catch((err) => console.error(err));
+  Book.bulkCreate(books)
     .then(() => console.log("Data uploaded successfully"))
     .catch((err) => console.error(err));
 });

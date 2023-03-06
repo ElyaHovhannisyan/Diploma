@@ -15,27 +15,10 @@ const Book = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    authorName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    authorSurname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     number: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    link: {
-      type: DataTypes.STRING,
-      allowNull: true,
     },
     SubjectId: {
       type: DataTypes.INTEGER,
@@ -44,6 +27,18 @@ const Book = sequelize.define(
         model: "Subjects",
         key: "id",
       },
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    count: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    path: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {

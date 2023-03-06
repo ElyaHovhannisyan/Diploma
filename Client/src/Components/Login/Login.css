@@ -48,7 +48,7 @@ body
 
 .transparent {
 	background-color: rgba(0, 33, 71, 0.5);
-	margin: auto auto;
+	margin: 10px auto;
 	padding: 40px;
 	border-radius: 15px;
 	box-shadow: 0 0 10px rgb(0 0 0 / 33%);
@@ -58,7 +58,8 @@ body
 	left: 0;
 	right: 0;
 	width: 400px;
-	/* height: 400px; */
+  display: flex;
+  align-items: center;
 }
 .transparent p
 {
@@ -75,14 +76,11 @@ body
  .form-inner label {
     display: block;
     padding-left: 15px;
-    color: rgba(255, 255, 255, .6);
+    color: #ffffff99;
     text-transform: uppercase;
     font-size: 14px;
  }
- .user
- {
-    margin-top: 30px;
- }
+
  .form-inner input {
     width: 70%;
     margin: 15px 0 15px;

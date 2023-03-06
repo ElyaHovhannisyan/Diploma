@@ -43,8 +43,7 @@ function Register() {
   const onSubmit = (data) => {
     AuthService.register(data.username, data.email, data.password).then(
       (data) => {
-        console.log(data);
-        navigate("/login");
+        navigate("/user");
       },
       (error) => {
         setError(error.response.data.message);

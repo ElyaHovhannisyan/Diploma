@@ -1,0 +1,36 @@
+.booklist {
+    display: inline-block;
+    margin: 10px auto;
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgb(0 0 0 / 33%);
+    background-color: rgba(0, 33, 71);
+    padding: 15px 25px;
+    width: 200px;
+    height: 300px;  
+    font-size: 18px;
+  }
+  .bookImg{
+    width: 60%;
+    height: 40%;
+  }
+  .buttonclass {
+    top: 90%;
+    left: 30%;
+    border:none;
+    border-radius: 30px;
+    font-size: 18px;
+    background-color: rgb(133,12,35);
+    text-decoration: none;
+    padding: 10px;
+    color: #ffffff99
+  }
+  .buttonclass:hover {
+    color: rgba(0, 33, 71);
+    text-decoration: none;
+    box-shadow:4px 4px #babaae;
+   }
+  
+ 
+
+    
+  

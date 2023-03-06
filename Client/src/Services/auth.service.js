@@ -1,17 +1,42 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:9000/api/";
-
 const register = (username, email, password) => {
-  return axios.post(API_URL + "register", {
-    username,
-    email,
-    password,
+  return axios
+    .post("/api/register", {
+      username,
+      email,
+      password,
+    })
+    .then((response) => {
+      if (response.data.UserId) {
+        localStorage.setItem("me", JSON.stringify(response.data));
+      }
+    });
+};
+const login = (username, password) => {
+  return axios
+    .post("/api/login", {
+      username,
+      password,
+    })
+    .then((response) => {
+      if (response.data.UserId) {
+        localStorage.setItem("me", JSON.stringify(response.data));
+      }
+    });
+};
+
+const logout = () => {
+  localStorage.removeItem("me");
+  return axios.post("/api/signout").then((response) => {
+    return response.data;
   });
 };
 
 const AuthService = {
   register,
+  login,
+  logout,
 };
 
 export default AuthService;

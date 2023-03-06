@@ -34,7 +34,6 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
     });
 
     if (user) {
-      console.log("\nbbbbbbb\n");
       return res.status(400).send({
         message: "Ձախողում! Օգտանունն արդեն գոյություն ունի!",
       });

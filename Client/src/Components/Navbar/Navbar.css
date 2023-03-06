@@ -1,0 +1,28 @@
+.navbar
+{
+  background-color: #002147;
+  box-sizing: border-box;
+  padding: 20px 50px 20px 50px;
+  box-shadow: 0 9px 13px 7px rgb(0 0 0 / 33%);
+  display: flex;
+}
+
+.user
+{
+    color: white;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+.search
+{
+  padding: 1px 24px;
+  width: 200px;
+  border: none;
+  background-color: white;
+  border-radius: 20px;
+  color: #002147;
+  margin-left: 30px;
+  font-size: 17px;
+  cursor: pointer;
+}

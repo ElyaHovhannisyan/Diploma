@@ -1,8 +1,10 @@
 const { Router } = require("express");
 const router = Router();
 
-const auth_routes = require("./auth.routes");
+const authRoutes = require("./auth");
+const bookRoutes = require("./book");
 
-router.use("/api", auth_routes);
+router.use("/api", authRoutes);
+router.use("/api", bookRoutes);
 
 module.exports = router;
