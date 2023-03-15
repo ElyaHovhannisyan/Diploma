@@ -11,14 +11,14 @@ const Book = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     number: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     SubjectId: {
       type: DataTypes.INTEGER,
@@ -28,8 +28,20 @@ const Book = sequelize.define(
         key: "id",
       },
     },
-    description: {
+    date: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    publisher: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pageCount: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     count: {

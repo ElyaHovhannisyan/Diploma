@@ -43,7 +43,6 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
         email: req.body.email,
       },
     });
-
     if (user) {
       return res.status(400).send({
         message: "Ձախողում! էլ․ հասցեն արդեն գոյություն ունի!",

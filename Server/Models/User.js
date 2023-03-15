@@ -2,6 +2,7 @@ const DataTypes = require("sequelize");
 const { sequelize } = require("../dbConfig");
 const { Student } = require("./Students");
 const { Lecturer } = require("./Lecturer");
+const { Worker } = require("./Worker");
 
 const User = sequelize.define(
   "Users",
@@ -28,6 +29,14 @@ const User = sequelize.define(
         key: "id",
       },
     },
+    WorkerId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "Workers",
+        key: "id",
+      },
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -41,11 +50,6 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-
-    role: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
   },
   {
     createdAt: false,
@@ -57,4 +61,6 @@ Student.hasOne(User, { foreignKey: "StudentId" });
 User.belongsTo(Student);
 Lecturer.hasOne(User, { foreignKey: "LecturerId" });
 User.belongsTo(Lecturer);
+Worker.hasOne(User, { foreignKey: "WorkerId" });
+User.belongsTo(Worker);
 module.exports = { User };

@@ -68,9 +68,9 @@ sequelize.sync({ alter: false, force: false }).then(() => {
   Lecturer.bulkCreate(lecturers)
     .then(() => console.log("Data uploaded successfully"))
     .catch((err) => console.error(err));
-  Book.bulkCreate(books)
-    .then(() => console.log("Data uploaded successfully"))
-    .catch((err) => console.error(err));
+  // Book.bulkCreate(books)
+  //   .then(() => console.log("Data uploaded successfully"))
+  //   .catch((err) => console.error(err));
 });
 
 module.exports = {

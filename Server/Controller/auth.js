@@ -16,32 +16,20 @@ const register = async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 8),
       StudentId: req.body.StudentId,
       LecturerId: req.body.LecturerId,
-      role: req.body.role,
+      WorkerId: req.body.WorkerId,
     });
     await Cart.create({ UserId: user.id });
-
+    if (user.StudentId) role = "student";
+    else if (user.LecturerId) role = "lecturer";
+    else role = "worker";
     const token = jwt.sign({ id: user.id }, config.secret, {
-      expiresIn: "10m",
-    });
-    const refreshToken = jwt.sign(
-      {
-        id: user.id,
-      },
-      config.secret,
-      { expiresIn: "30d" }
-    );
-
-    // Assigning refresh token in http-only cookie
-    res.cookie("jwt", refreshToken, {
-      httpOnly: true,
-      sameSite: "None",
-      secure: true,
-      maxAge: 24 * 60 * 60 * 1000,
+      expiresIn: "30d",
     });
 
     res.status(200).json({
       token,
       UserId: user.id,
+      role: role,
     });
   } catch (error) {
     console.log(error.message);
@@ -71,29 +59,17 @@ const signin = async (req, res) => {
         message: "Սխալ մուտքանուն կամ գաղտնաբառ",
       });
     }
-
+    if (user.StudentId) role = "student";
+    else if (user.LecturerId) role = "lecturer";
+    else role = "worker";
     const token = jwt.sign({ id: user.id }, config.secret, {
-      expiresIn: "10m",
-    });
-    const refreshToken = jwt.sign(
-      {
-        id: user.id,
-      },
-      config.secret,
-      { expiresIn: "30d" }
-    );
-
-    // Assigning refresh token in http-only cookie
-    res.cookie("jwt", refreshToken, {
-      httpOnly: true,
-      sameSite: "None",
-      secure: true,
-      maxAge: 24 * 60 * 60 * 1000,
+      expiresIn: "30d",
     });
 
     res.status(200).json({
       token,
       UserId: user.id,
+      role: role,
     });
   } catch (error) {
     return res.status(500).send({ message: error.message });
