@@ -16,7 +16,6 @@ async function createBook(req) {
   try {
     if (Array.isArray(req.body)) {
       const bodyLength = Object.keys(req.body).length;
-      console.log(bodyLength);
       for (i = 0; i < bodyLength; i++) {
         const subjectId = await Subject.findOne({
           where: { name: req.body[i].subjectName },

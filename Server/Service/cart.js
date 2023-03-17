@@ -40,9 +40,9 @@ const addToCartService = async (UserId, reqBody) => {
   }
 };
 
-const getCartContent = async () => {
+const getCartContent = async (UserId) => {
   try {
-    const cart = await Cart.findOne({ where: { UserId: 1 } });
+    const cart = await Cart.findOne({ where: { UserId: UserId } });
     const CartId = cart.id;
 
     const cartAssignments = await CartAssignment.findAll({
@@ -65,13 +65,13 @@ const getCartContent = async () => {
   }
 };
 
-const deleteCartContent = async (UserId) => {
+const deleteCartContent = async (UserId, bookId) => {
   try {
     const cart = await Cart.findOne({
       where: { UserId },
     });
     const deleteCartAssignment = await CartAssignment.destroy({
-      where: { CartId: cart.id },
+      where: { CartId: cart.id, BookId: bookId },
     });
     return { cart: deleteCartAssignment };
   } catch (error) {

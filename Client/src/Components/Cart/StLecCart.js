@@ -7,37 +7,44 @@ import useCartApi from "../../Services/useCartApi";
 
 function Cart() {
   const [books, setBooks] = useState([]);
-  const { getCart } = useCartApi();
+  const { getCart, deleteCart } = useCartApi();
+  const token = JSON.parse(localStorage.getItem("me"))?.token;
   useEffect(() => {
-    getCart()
-      .then((res) => res.json())
-      .then((res) => {
-        if (!res.error) {
-          console.log(res.cart);
-          setBooks(
-            res.cart.map((item) => {
-              const { Book } = item;
-              console.log(Book.Subject.name);
-              const title = Book.title;
-              const name = Book.Subject.name;
-              return { ...Book };
-            })
-          );
-        }
-      });
-    console.log(books);
+    getCart(token).then((res) => {
+      setBooks(
+        res.data.cart.map((item) => {
+          const { Book } = item;
+          const bookId = Book.id;
+          const title = Book.title;
+          const name = Book.Subject.name;
+          return { title, name, bookId };
+        })
+      );
+    });
   }, []);
-  return books.map(({ title, name }) => {
-    <>
-      <Navbar></Navbar>
-      <div className="booklist">
-        <Link to={`/book/id`}>
-          <img src={book} alt={book} className="bookImg" />
-        </Link>
-        <p className="ptitle">{title}</p>
-        <p className="psubject">{name}</p>
-      </div>
-    </>;
+  function handleCartRemove(BookId) {
+    return function () {
+      deleteCart(token, BookId);
+      //updateBook cout;
+      setBooks(books.filter((item) => item.bookId !== BookId));
+    };
+  }
+  return books.map(({ title, name, bookId }) => {
+    return (
+      <>
+        <Navbar></Navbar>
+        <div className="booklist">
+          <Link to={`/book/id`}>
+            <img src={book} alt={book} className="bookImg" />
+          </Link>
+          <p className="ptitle">{title}</p>
+          <p className="psubject">{name}</p>
+          <button className="buttonclass" onClick={handleCartRemove(bookId)}>
+            Չեղարկել
+          </button>
+        </div>
+      </>
+    );
   });
 }
 

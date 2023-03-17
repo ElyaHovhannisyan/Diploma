@@ -1,18 +1,26 @@
+import axios from "axios";
 const useCartApi = () => {
   const url = "/api/cart";
-  const getCart = async () => {
-    const body = {
-      userId: 1,
+  const getCart = async (token) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
     };
-    return fetch(url, {
-      method: "GET",
+    return axios(url, {
+      headers: headers,
     });
   };
-
+  const deleteCart = async (token, BookId) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios.delete(url + `/${BookId}`, {
+      headers: headers,
+    });
+  };
   return {
     // addCart,
     // updateCart,
-    // deleteCart,
+    deleteCart,
     getCart,
     // buyCart,
   };

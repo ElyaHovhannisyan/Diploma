@@ -19,6 +19,7 @@ verifyToken = (req, res, next) => {
     req.userId = decoded.id;
     req.role = decoded.role;
     req.user = decoded;
+    req.params = req.params;
     next();
   });
 };

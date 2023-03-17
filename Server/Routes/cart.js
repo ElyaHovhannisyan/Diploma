@@ -7,8 +7,8 @@ const { getAllCart } = require("../Controller/cart");
 const { authJwt } = require("../Middleware/authJWT");
 
 router.post("/cart", /*[authJwt.verifyToken],*/ addToCart);
-router.get("/cart", /*[authJwt.verifyToken],*/ getCart);
-router.delete("/cart", /*[authJwt.verifyToken],*/ deleteCart);
+router.get("/cart", [authJwt.verifyToken], getCart);
+router.delete("/cart/:bookId", [authJwt.verifyToken], deleteCart);
 router.get("/carts", /*[authJwt.verifyToken],*/ getAllCart);
 
 module.exports = router;

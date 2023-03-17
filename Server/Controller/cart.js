@@ -6,7 +6,7 @@ const {
 } = require("../Service/cart");
 
 const addToCart = async (req, res) => {
-  const UserId = req.body.UserId; //change req.user.id
+  const UserId = req.user.id;
   const reqBody = req.body;
   const { error, cart } = await addToCartService(UserId, reqBody);
 
@@ -23,15 +23,16 @@ const addToCart = async (req, res) => {
 };
 
 const getCart = async (req, res) => {
-  const UserId = req.body.UserId; //change req.user.id
-  const cartContent = await getCartContent();
+  const UserId = req.user.id;
+  const cartContent = await getCartContent(UserId);
 
   res.status(200).json(cartContent);
 };
 
 const deleteCart = async (req, res) => {
-  const UserId = req.body.UserId; //change req.user.id
-  const { error, cart } = await deleteCartContent(userId);
+  const UserId = req.user.id;
+  const bookId = req.params["bookId"];
+  const { error, cart } = await deleteCartContent(UserId, bookId);
   if (error) {
     res.status(400).json({ error: "Error occurred while deleting cart." });
   }
