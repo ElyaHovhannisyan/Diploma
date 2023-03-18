@@ -36,7 +36,7 @@ const BookDetail = sequelize.define(
   }
 );
 
-Author.hasMany(BookDetail, { foreignKey: "CartId" });
+Author.hasMany(BookDetail, { foreignKey: "AuthorId" });
 BookDetail.belongsTo(Author);
 Book.hasMany(BookDetail, { foreignKey: "BookId" });
 BookDetail.belongsTo(Book);

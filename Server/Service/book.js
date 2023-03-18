@@ -1,9 +1,28 @@
 const { Book } = require("../Models/Book");
 const { Subject } = require("../Models/Subject");
+const { BookDetail } = require("../Models/BookDetail");
+const { Author } = require("../Models/Author");
+const { Student } = require("../Models/Students");
+const { Lesson } = require("../Models/Lesson");
 
 async function takeBook(id) {
   try {
-    const book = await Book.findByPk(id);
+    const book = await Book.findByPk(id, {
+      include: [
+        {
+          model: Subject,
+          attributes: ["name"],
+        },
+        {
+          model: BookDetail,
+          attributes: ["id"],
+          include: {
+            model: Author,
+            attributes: ["name"],
+          },
+        },
+      ],
+    });
 
     if (!book) throw new Error("unknown book id");
 
@@ -12,32 +31,86 @@ async function takeBook(id) {
     return { error };
   }
 }
-async function createBook(req) {
+async function updateBook(id) {
   try {
-    if (Array.isArray(req.body)) {
-      const bodyLength = Object.keys(req.body).length;
-      for (i = 0; i < bodyLength; i++) {
-        const subjectId = await Subject.findOne({
-          where: { name: req.body[i].subjectName },
-        });
-        delete req.body[i].subjectName;
-        req.body[i].SubjectId = subjectId.id;
-        await Book.create(req.body[i]);
+    const b = await Book.findByPk(id);
+    const book = await Book.update(
+      { count: b.count - 1 },
+      {
+        where: { id },
       }
-    } else {
-      const subjectId = await Subject.findOne({
-        where: { name: req.body.subjectName },
+    );
+
+    return { book };
+  } catch (error) {
+    return { error };
+  }
+}
+async function getStudentsBooks(StudentId, semester) {
+  try {
+    const student = await Student.findByPk(StudentId, {
+      attributes: ["group"],
+    });
+    const g = student.group.substr(3, 2);
+    const lessons = await Lesson.findAll({
+      attributes: ["SubjectId"],
+      where: { g, semester },
+    });
+    const booksPromises = lessons.map(async (lesson) => {
+      const books = await Book.findAll({
+        attributes: ["title", "path", "count"],
+        where: { SubjectId: lesson.SubjectId },
+        include: [
+          {
+            model: Subject,
+            attributes: ["name"],
+          },
+          {
+            model: BookDetail,
+            attributes: ["id"],
+            include: {
+              model: Author,
+              attributes: ["name"],
+            },
+          },
+        ],
       });
-      delete req.body.subjectName;
-      req.body.SubjectId = subjectId.id;
-      await Book.create(req.body);
-    }
-    return { message: "Books created" };
+      return books;
+    });
+    const books = await Promise.all(booksPromises);
+    return { books };
+  } catch (error) {
+    return { error };
+  }
+}
+async function getLecturersBooks(SubjectId) {
+  try {
+    const books = await Book.findAll({
+      attributes: ["title", "path", "count"],
+      where: { SubjectId },
+      include: [
+        {
+          model: Subject,
+          attributes: ["name"],
+        },
+        {
+          model: BookDetail,
+          attributes: ["id"],
+          include: {
+            model: Author,
+            attributes: ["name"],
+          },
+        },
+      ],
+    });
+    return { books };
   } catch (error) {
     return { error };
   }
 }
 module.exports = {
   takeBook,
-  createBook,
+  updateBook,
+  getStudentsBooks,
+  getLecturersBooks,
 };

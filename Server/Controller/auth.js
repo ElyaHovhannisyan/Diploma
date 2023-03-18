@@ -19,17 +19,17 @@ const register = async (req, res) => {
       WorkerId: req.body.WorkerId,
     });
     await Cart.create({ UserId: user.id });
-    if (user.StudentId) role = "student";
-    else if (user.LecturerId) role = "lecturer";
-    else role = "worker";
-    const token = jwt.sign({ id: user.id }, config.secret, {
-      expiresIn: "30d",
-    });
+    const token = jwt.sign(
+      { id: user.id, StudentId: user.StudentId, LecturerId: user.LecturerId },
+      config.secret,
+      {
+        expiresIn: "30d",
+      }
+    );
 
     res.status(200).json({
       token,
       UserId: user.id,
-      role: role,
     });
   } catch (error) {
     console.log(error.message);
@@ -59,17 +59,17 @@ const signin = async (req, res) => {
         message: "Սխալ մուտքանուն կամ գաղտնաբառ",
       });
     }
-    if (user.StudentId) role = "student";
-    else if (user.LecturerId) role = "lecturer";
-    else role = "worker";
-    const token = jwt.sign({ id: user.id }, config.secret, {
-      expiresIn: "30d",
-    });
+    const token = jwt.sign(
+      { id: user.id, StudentId: user.StudentId, LecturerId: user.LecturerId },
+      config.secret,
+      {
+        expiresIn: "30d",
+      }
+    );
 
     res.status(200).json({
       token,
       UserId: user.id,
-      role: role,
     });
   } catch (error) {
     return res.status(500).send({ message: error.message });

@@ -19,7 +19,7 @@ const Lesson = sequelize.define(
         key: "id",
       },
     },
-    group: {
+    g: {
       type: DataTypes.STRING,
       allowNull: false,
     },

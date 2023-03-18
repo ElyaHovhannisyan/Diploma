@@ -14,10 +14,6 @@ const Author = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    surname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   },
   {
     createdAt: false,

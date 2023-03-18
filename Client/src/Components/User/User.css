@@ -1,34 +1,63 @@
+.main
+{
+  display: flex;
+}
+.needslist
+{
+  /* display: flex; */
+    margin: 30px 50px 10px 30px;
+	  border-radius: 30px;
+	  box-shadow: 0 0 10px rgb(0 0 0 / 33%);
+    background-color: rgba(0, 33, 71); 
+    padding: 15px 15px;
+    width: 300px;
+    height: 400px;  
+    font-size: 18px;
+    color: #ffffff99;
+    text-align: center;
+    /* align-items: center;
+    flex-direction: column; */
+}
 .booklist {
     display: inline-block;
-    margin: 10px auto;
-	border-radius: 20px;
-	box-shadow: 0 0 10px rgb(0 0 0 / 33%);
-    background-color: rgba(0, 33, 71);
+    margin: 30px 10px;
+	  border-radius: 20px;
+	  box-shadow: 0 0 10px rgb(0 0 0 / 33%);
+    background-color:  rgb(133,12,35);
     padding: 15px 25px;
     width: 200px;
-    height: 300px;  
+    height: 310px;  
     font-size: 18px;
+    color: #ffffff99;
+    text-align: center;
   }
   .bookImg{
-    width: 60%;
-    height: 40%;
+    width: 50%;
+    height: 30%;
   }
-  .buttonclass {
+  .cartButton {
     top: 90%;
     left: 30%;
     border:none;
     border-radius: 30px;
     font-size: 18px;
-    background-color: rgb(133,12,35);
+    background-color: rgba(0, 33, 71); ;
     text-decoration: none;
     padding: 10px;
-    color: #ffffff99
+    color: #ffffff99;
+    margin-top: 10px;
   }
-  .buttonclass:hover {
-    color: rgba(0, 33, 71);
+  .cartButton:hover {
+    color: rgb(133,12,35);
     text-decoration: none;
     box-shadow:4px 4px #babaae;
    }
+   .bookDescription a
+   {
+    color: #ffffff99;
+    text-decoration: none;
+   }
+
   
  
 

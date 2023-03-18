@@ -1,6 +1,7 @@
 const DataTypes = require("sequelize");
 const { sequelize } = require("../dbConfig");
 const { User } = require("./User");
+const { Book } = require("./Book");
 
 const Order = sequelize.define(
   "Order",
@@ -19,6 +20,14 @@ const Order = sequelize.define(
         key: "id",
       },
     },
+    BookId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Books",
+        key: "id",
+      },
+    },
     bookNumber: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -34,5 +43,7 @@ const Order = sequelize.define(
 
 User.hasMany(Order, { foreignKey: "UserId" });
 Order.belongsTo(User);
+Book.hasMany(Order, { foreignKey: "BookId" });
+Order.belongsTo(Book);
 
 module.exports = { Order };
