@@ -7,8 +7,8 @@ const {
 
 const addToCart = async (req, res) => {
   const UserId = req.user.id;
-  const reqBody = req.body;
-  const { error, cart } = await addToCartService(UserId, reqBody);
+  const BookId = req.params["bookId"];
+  const { error, cart } = await addToCartService(UserId, BookId);
 
   if (error) {
     console.error(error);
@@ -40,8 +40,11 @@ const deleteCart = async (req, res) => {
 };
 
 const getAllCart = async (req, res) => {
-  const carts = await getCarts();
-  res.status(200).json(carts);
+  const { error, cart } = await getCarts();
+  if (error) {
+    res.status(400).json({ error });
+  }
+  res.status(200).json(cart);
 };
 module.exports = {
   addToCart,

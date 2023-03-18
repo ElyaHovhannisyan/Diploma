@@ -3,6 +3,7 @@ import book from "../../img/book.png";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../User/User.css";
+import "./StLecCart.css";
 import useCartApi from "../../Services/useCartApi";
 
 function Cart() {
@@ -29,23 +30,26 @@ function Cart() {
       setBooks(books.filter((item) => item.bookId !== BookId));
     };
   }
-  return books.map(({ title, name, bookId }) => {
-    return (
-      <>
-        <Navbar></Navbar>
-        <div className="booklist">
-          <Link to={`/book/id`}>
-            <img src={book} alt={book} className="bookImg" />
-          </Link>
-          <p className="ptitle">{title}</p>
-          <p className="psubject">{name}</p>
-          <button className="buttonclass" onClick={handleCartRemove(bookId)}>
-            Չեղարկել
-          </button>
-        </div>
-      </>
-    );
-  });
+
+  return (
+    <>
+      <Navbar></Navbar>
+      {books.map(({ title, name, bookId }) => {
+        return (
+          <div className="booklist">
+            <Link to={`/book/id`}>
+              <img src={book} alt={book} className="bookImg" />
+            </Link>
+            <p className="ptitle">{title}</p>
+            <p className="psubject">{name}</p>
+            <button className="deleteButton" onClick={handleCartRemove(bookId)}>
+              Չեղարկել
+            </button>
+          </div>
+        );
+      })}
+    </>
+  );
 }
 
 export default Cart;

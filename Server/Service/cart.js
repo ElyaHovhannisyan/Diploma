@@ -9,9 +9,8 @@ const { Worker } = require("../Models/Worker");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
-const addToCartService = async (UserId, reqBody) => {
+const addToCartService = async (UserId, BookId) => {
   try {
-    const { BookId } = reqBody;
     const cart = await Cart.findOne({
       where: { UserId },
     });
@@ -51,7 +50,7 @@ const getCartContent = async (UserId) => {
       },
       include: {
         model: Book,
-        attributes: ["id", "title", "number", "SubjectId"],
+        attributes: ["id", "title", "SubjectId"],
         include: {
           model: Subject,
           attributes: ["name"],
@@ -85,7 +84,7 @@ const getCarts = async () => {
       include: [
         {
           model: Book,
-          attributes: ["id", "title", "number", "SubjectId"],
+          attributes: ["id", "title", "SubjectId"],
           include: {
             model: Subject,
             attributes: ["name"],
@@ -96,7 +95,7 @@ const getCarts = async () => {
           attributes: ["UserId"],
           include: {
             model: User,
-            attributes: ["StudentId", "LecturerId", "WorkerId"],
+            attributes: ["StudentId", "LecturerId"],
             include: [
               {
                 model: Student,
@@ -104,10 +103,6 @@ const getCarts = async () => {
               },
               {
                 model: Lecturer,
-                attributes: ["name", "surname"],
-              },
-              {
-                model: Worker,
                 attributes: ["name", "surname"],
               },
             ],
