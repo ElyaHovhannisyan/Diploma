@@ -17,8 +17,8 @@ function Cart() {
           const { Book } = item;
           const bookId = Book.id;
           const title = Book.title;
-          const name = Book.Subject.name;
-          return { title, name, bookId };
+          const subjectName = Book.Subject.name;
+          return { title, subjectName, bookId };
         })
       );
     });
@@ -26,7 +26,7 @@ function Cart() {
   function handleCartRemove(BookId) {
     return function () {
       deleteCart(token, BookId);
-      //updateBook cout;
+      //updateBook count;
       setBooks(books.filter((item) => item.bookId !== BookId));
     };
   }
@@ -34,14 +34,14 @@ function Cart() {
   return (
     <>
       <Navbar></Navbar>
-      {books.map(({ title, name, bookId }) => {
+      {books.map(({ title, subjectName, bookId }) => {
         return (
           <div className="booklist">
             <Link to={`/book/id`}>
               <img src={book} alt={book} className="bookImg" />
             </Link>
             <p className="ptitle">{title}</p>
-            <p className="psubject">{name}</p>
+            <p className="psubject">{subjectName}</p>
             <button className="deleteButton" onClick={handleCartRemove(bookId)}>
               Չեղարկել
             </button>

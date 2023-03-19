@@ -30,6 +30,8 @@ const register = async (req, res) => {
     res.status(200).json({
       token,
       UserId: user.id,
+      StudentId: user.StudentId,
+      LecturerId: user.LecturerId,
     });
   } catch (error) {
     console.log(error.message);
@@ -70,6 +72,8 @@ const signin = async (req, res) => {
     res.status(200).json({
       token,
       UserId: user.id,
+      StudentId: user.StudentId,
+      LecturerId: user.LecturerId,
     });
   } catch (error) {
     return res.status(500).send({ message: error.message });

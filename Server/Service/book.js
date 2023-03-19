@@ -58,7 +58,7 @@ async function getStudentsBooks(StudentId, semester) {
     });
     const booksPromises = lessons.map(async (lesson) => {
       const books = await Book.findAll({
-        attributes: ["title", "path", "count"],
+        attributes: ["id", "title", "path", "count"],
         where: { SubjectId: lesson.SubjectId },
         include: [
           {
@@ -78,6 +78,7 @@ async function getStudentsBooks(StudentId, semester) {
       return books;
     });
     const books = await Promise.all(booksPromises);
+    console.log(books);
     return { books };
   } catch (error) {
     return { error };

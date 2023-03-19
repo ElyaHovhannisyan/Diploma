@@ -25,7 +25,6 @@ const addToCart = async (req, res) => {
 const getCart = async (req, res) => {
   const UserId = req.user.id;
   const cartContent = await getCartContent(UserId);
-
   res.status(200).json(cartContent);
 };
 
