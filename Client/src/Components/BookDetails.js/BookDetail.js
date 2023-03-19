@@ -67,13 +67,15 @@ function BookDetail() {
                 {city} {date}
               </p>
               <p>{pageCount} էջ</p>
-              <a
-                href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Էլ․ տարբերակ
-              </a>
+              {path && (
+                <a
+                  href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Էլ․ տարբերակ
+                </a>
+              )}
               <p> Առկա է՝ {count}</p>
               <button className="cartButton">Պատվիրել</button>
             </div>

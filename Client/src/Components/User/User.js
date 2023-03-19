@@ -91,13 +91,15 @@ function User() {
                     return <p>{item}</p>;
                   })}
 
-                  <a
-                    href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Էլ․ տարբերակ
-                  </a>
+                  {path && (
+                    <a
+                      href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Էլ․ տարբերակ
+                    </a>
+                  )}
                   <button className="cartButton">Պատվիրել</button>
                 </div>
               </div>
