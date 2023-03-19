@@ -5,11 +5,14 @@ import "./User.css";
 import { useState, useEffect } from "react";
 import useBookApi from "../../Services/useBookApi";
 import useCartApi from "../../Services/useCartApi";
+import useSubjectApi from "../../Services/useSubjectApi";
 
 function User() {
   const [books, setBooks] = useState([]);
+  const [subjects, setSubjects] = useState([]);
   const { getLecturerBooks, getStudentBooks } = useBookApi();
   const { addCart } = useCartApi();
+  const { getSubjects } = useSubjectApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
   const studentId = JSON.parse(localStorage.getItem("me"))?.StudentId;
   const lecturerId = JSON.parse(localStorage.getItem("me"))?.LecturerId;
@@ -37,9 +40,18 @@ function User() {
         );
       });
     else if (lecturerId) {
+      getSubjects(token).then((res) => {
+        setSubjects(
+          res.data.map((item) => {
+            const subjectId = item.id;
+            const subjectName = item.Subject.name;
+            return { subjectId, subjectName };
+          })
+        );
+      });
     }
   }, []);
-  function handleBooksGet(semester) {
+  function handleSemesterBooks(semester) {
     return function () {
       getStudentBooks(token, semester).then((res) => {
         setBooks(
@@ -75,14 +87,22 @@ function User() {
       <Navbar></Navbar>
       <div className="main">
         <div className="needslist">
-          <p onClick={handleBooksGet(1)}>I կիսամյակ</p>
-          <p onClick={handleBooksGet(2)}>II կիսամյակ</p>
-          <p onClick={handleBooksGet(3)}>III կիսամյակ</p>
-          <p onClick={handleBooksGet(4)}>IV կիսամյակ</p>
-          <p onClick={handleBooksGet(5)}>V կիսամյակ</p>
-          <p onClick={handleBooksGet(6)}>VI կիսամյակ</p>
-          <p onClick={handleBooksGet(7)}>VII կիսամյակ</p>
-          <p onClick={handleBooksGet(8)}>VIII կիսամյակ</p>
+          {studentId && (
+            <>
+              <p onClick={handleSemesterBooks(1)}>I կիսամյակ</p>
+              <p onClick={handleSemesterBooks(2)}>II կիսամյակ</p>
+              <p onClick={handleSemesterBooks(3)}>III կիսամյակ</p>
+              <p onClick={handleSemesterBooks(4)}>IV կիսամյակ</p>
+              <p onClick={handleSemesterBooks(5)}>V կիսամյակ</p>
+              <p onClick={handleSemesterBooks(6)}>VI կիսամյակ</p>
+              <p onClick={handleSemesterBooks(7)}>VII կիսամյակ</p>
+              <p onClick={handleSemesterBooks(8)}>VIII կիսամյակ</p>
+            </>
+          )}
+          {lecturerId &&
+            subjects.map(({ subjectId, subjectName }) => {
+              return <p>{subjectName}</p>;
+            })}
         </div>
         <div>
           {books.map(({ title, subjectName, path, bookId, authorsName }) => {
