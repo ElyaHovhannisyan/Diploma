@@ -34,7 +34,8 @@ function Login() {
   const onSubmit = (data) => {
     AuthService.login(data.username, data.password).then(
       (data) => {
-        navigate("/user");
+        if (data.LecturerId || data.StudentId) navigate("/user");
+        else if (data.WorkerId) navigate("/worker");
       },
       (error) => {
         setError(error.response.data.message);

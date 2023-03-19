@@ -8,6 +8,7 @@ import Search from "./Components/Search/Search";
 import User from "./Components/User/User";
 import Cart from "./Components/Cart/StLecCart";
 import BookDetail from "./Components/BookDetails.js/BookDetail";
+import Worker from "./Components/Worker/Worker";
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +22,7 @@ function App() {
         <Route exact path={"/user"} element={<User />} />
         <Route exact path={"/cart"} element={<Cart />} />
         <Route exact path={"/book/:id"} element={<BookDetail />} />
+        <Route exact path={"/worker"} element={<Worker />} />
       </Routes>
       <Footer />
     </BrowserRouter>

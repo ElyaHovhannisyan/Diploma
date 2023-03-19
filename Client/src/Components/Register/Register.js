@@ -43,7 +43,8 @@ function Register() {
   const onSubmit = (data) => {
     AuthService.register(data.username, data.email, data.password).then(
       (data) => {
-        navigate("/user");
+        if (data.LecturerId || data.StudentId) navigate("/user");
+        else if (data.WorkerId) navigate("/worker");
       },
       (error) => {
         setError(error.response.data.message);

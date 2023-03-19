@@ -1,5 +1,6 @@
 const { Lecturer } = require("../Models/Lecturer");
 const { Student } = require("../Models/Students");
+const { Worker } = require("../Models/Worker");
 const { User } = require("../Models/User");
 
 checkDuplicateUsernameOrEmail = async (req, res, next) => {
@@ -10,7 +11,7 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
       },
     });
     if (user) {
-      b = { StudentId: user.id, role: "student" };
+      b = { StudentId: user.id };
       req.body = { ...req.body, ...b };
     } else {
       user = await Lecturer.findOne({
@@ -19,12 +20,22 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
         },
       });
       if (user) {
-        b = { LecturerId: user.id, role: "lecturer" };
+        b = { LecturerId: user.id };
         req.body = { ...req.body, ...b };
       } else {
-        return res.status(400).send({
-          message: "Անվավեր էլ․ հասցե",
+        user = await Worker.findOne({
+          where: {
+            email: req.body.email,
+          },
         });
+        if (user) {
+          b = { WorkerId: user.id };
+          req.body = { ...req.body, ...b };
+        } else {
+          return res.status(400).send({
+            message: "Անվավեր էլ․ հասցե",
+          });
+        }
       }
     }
     user = await User.findOne({

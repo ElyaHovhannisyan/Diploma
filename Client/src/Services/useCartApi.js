@@ -30,10 +30,19 @@ const useCartApi = () => {
       headers: headers,
     });
   };
+  const getAllCart = async (token) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios("api/carts", {
+      headers: headers,
+    });
+  };
   return {
     addCart,
     deleteCart,
     getCart,
+    getAllCart,
   };
 };
 

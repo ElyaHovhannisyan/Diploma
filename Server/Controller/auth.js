@@ -20,7 +20,12 @@ const register = async (req, res) => {
     });
     await Cart.create({ UserId: user.id });
     const token = jwt.sign(
-      { id: user.id, StudentId: user.StudentId, LecturerId: user.LecturerId },
+      {
+        id: user.id,
+        StudentId: user.StudentId,
+        LecturerId: user.LecturerId,
+        WorkerId: user.WorkerId,
+      },
       config.secret,
       {
         expiresIn: "30d",
@@ -32,6 +37,7 @@ const register = async (req, res) => {
       UserId: user.id,
       StudentId: user.StudentId,
       LecturerId: user.LecturerId,
+      WorkerId: user.WorkerId,
     });
   } catch (error) {
     console.log(error.message);
@@ -62,7 +68,12 @@ const signin = async (req, res) => {
       });
     }
     const token = jwt.sign(
-      { id: user.id, StudentId: user.StudentId, LecturerId: user.LecturerId },
+      {
+        id: user.id,
+        StudentId: user.StudentId,
+        LecturerId: user.LecturerId,
+        WorkerId: user.WorkerId,
+      },
       config.secret,
       {
         expiresIn: "30d",
@@ -74,6 +85,7 @@ const signin = async (req, res) => {
       UserId: user.id,
       StudentId: user.StudentId,
       LecturerId: user.LecturerId,
+      WorkerId: user.WorkerId,
     });
   } catch (error) {
     return res.status(500).send({ message: error.message });

@@ -86,7 +86,7 @@ async function getStudentsBooks(StudentId, semester) {
 async function getLecturersBooks(SubjectId) {
   try {
     const books = await Book.findAll({
-      attributes: ["title", "path", "count"],
+      attributes: ["id", "title", "path", "count"],
       where: { SubjectId },
       include: [
         {

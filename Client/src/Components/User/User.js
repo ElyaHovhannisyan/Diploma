@@ -40,17 +40,54 @@ function User() {
         );
       });
     else if (lecturerId) {
-      getSubjects(token).then((res) => {
-        setSubjects(
-          res.data.map((item) => {
-            const subjectId = item.id;
+      getSubjects(token)
+        .then((res) => {
+          const subjects = res.data.map((item) => {
+            const subjectId = item.SubjectId;
             const subjectName = item.Subject.name;
             return { subjectId, subjectName };
+          });
+          setSubjects(subjects);
+          return subjects;
+        })
+        .then((subjects) => {
+          if (subjects.length > 0) {
+            getLecturerBooks(token, subjects[0].subjectId).then((res) => {
+              setBooks(
+                res.data.map((item) => {
+                  const bookId = item.id;
+                  const title = item.title;
+                  const subjectName = item.Subject.name;
+                  const path = item.path;
+                  const authorsName = item.BookDetails.map((item) => {
+                    return item.Author.name;
+                  });
+                  return { title, subjectName, bookId, path, authorsName };
+                })
+              );
+            });
+          }
+        });
+    }
+  }, []);
+  function handleSubjectBooks(id) {
+    return function () {
+      getLecturerBooks(token, id).then((res) => {
+        setBooks(
+          res.data.map((item) => {
+            const bookId = item.id;
+            const title = item.title;
+            const subjectName = item.Subject.name;
+            const path = item.path;
+            const authorsName = item.BookDetails.map((item) => {
+              return item.Author.name;
+            });
+            return { title, subjectName, bookId, path, authorsName };
           })
         );
       });
-    }
-  }, []);
+    };
+  }
   function handleSemesterBooks(semester) {
     return function () {
       getStudentBooks(token, semester).then((res) => {
@@ -101,7 +138,9 @@ function User() {
           )}
           {lecturerId &&
             subjects.map(({ subjectId, subjectName }) => {
-              return <p>{subjectName}</p>;
+              return (
+                <p onClick={handleSubjectBooks(subjectId)}>{subjectName}</p>
+              );
             })}
         </div>
         <div>
