@@ -78,7 +78,6 @@ async function getStudentsBooks(StudentId, semester) {
       return books;
     });
     const books = await Promise.all(booksPromises);
-    console.log(books);
     return { books };
   } catch (error) {
     return { error };

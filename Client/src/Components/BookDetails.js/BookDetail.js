@@ -2,16 +2,19 @@ import Navbar from "../Navbar/Navbar";
 import book from "../../img/book.png";
 import { useState, useEffect } from "react";
 import useBookApi from "../../Services/useBookApi";
+import useCartApi from "../../Services/useCartApi";
 import { useParams } from "react-router-dom";
 
 function BookDetail() {
   const [books, setBooks] = useState([]);
   const { getBookDetails } = useBookApi();
+  const { addCart } = useCartApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
   const { id } = useParams();
   useEffect(() => {
     getBookDetails(token, id).then((res) => {
       const Book = res.data;
+      const bookId = Book.id;
       const title = Book.title;
       const count = Book.count;
       const subjectName = Book.Subject.name;
@@ -25,6 +28,7 @@ function BookDetail() {
         authorsName.push(item.Author.name);
       });
       setBooks({
+        bookId,
         title,
         count,
         subjectName,
@@ -38,6 +42,7 @@ function BookDetail() {
     });
   }, []);
   const {
+    bookId,
     title,
     subjectName,
     count,
@@ -48,6 +53,12 @@ function BookDetail() {
     publisher,
     authorsName,
   } = books;
+  function handleCartAdd(bookId) {
+    return function () {
+      addCart(token, bookId);
+      //updatecount-
+    };
+  }
   return (
     <>
       <Navbar></Navbar>
@@ -58,10 +69,10 @@ function BookDetail() {
             <div className="bookDescription">
               <p className="ptitle">{title}</p>
               <p className="psubject">{subjectName}</p>
-
-              {authorsName.map((item) => {
-                return <p>{item}</p>;
-              })}
+              {authorsName &&
+                authorsName.map((item) => {
+                  return <p>{item}</p>;
+                })}
               <p> {publisher} </p>
               <p>
                 {city} {date}
@@ -77,7 +88,9 @@ function BookDetail() {
                 </a>
               )}
               <p> Առկա է՝ {count}</p>
-              <button className="cartButton">Պատվիրել</button>
+              <button className="cartButton" onClick={handleCartAdd(bookId)}>
+                Պատվիրել
+              </button>
             </div>
           </div>
         </div>

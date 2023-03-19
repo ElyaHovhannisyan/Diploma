@@ -24,7 +24,6 @@ const getStudentBooks = async (req, res) => {
   const semester = req.params["semester"];
   const { error, books } = await getStudentsBooks(StudentId, semester);
   if (error) res.status(406).send("Can't get a book");
-  console.log(books);
   res.status(200).send(books);
 };
 const getLecturerBooks = async (req, res) => {

@@ -1,6 +1,19 @@
 import axios from "axios";
 const useCartApi = () => {
   const url = "/api/cart";
+  const addCart = async (token, bookId) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+    return axios.post(
+      url + `/${bookId}`,
+      {},
+      {
+        headers: headers,
+      }
+    );
+  };
   const getCart = async (token) => {
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -18,11 +31,9 @@ const useCartApi = () => {
     });
   };
   return {
-    // addCart,
-    // updateCart,
+    addCart,
     deleteCart,
     getCart,
-    // buyCart,
   };
 };
 

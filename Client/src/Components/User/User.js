@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import "./User.css";
 import { useState, useEffect } from "react";
 import useBookApi from "../../Services/useBookApi";
+import useCartApi from "../../Services/useCartApi";
 
 function User() {
   const [books, setBooks] = useState([]);
   const { getLecturerBooks, getStudentBooks } = useBookApi();
+  const { addCart } = useCartApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
   const studentId = JSON.parse(localStorage.getItem("me"))?.StudentId;
   const lecturerId = JSON.parse(localStorage.getItem("me"))?.LecturerId;
@@ -27,7 +29,6 @@ function User() {
               subjectName = book.Subject.name;
               path = book.path;
               book.BookDetails.map((item) => {
-                console.log(item);
                 authorsName.push(item.Author.name);
               });
             });
@@ -61,6 +62,12 @@ function User() {
           })
         );
       });
+    };
+  }
+  function handleCartAdd(bookId) {
+    return function () {
+      addCart(token, bookId);
+      //updatecount-
     };
   }
   return (
@@ -100,7 +107,12 @@ function User() {
                       Էլ․ տարբերակ
                     </a>
                   )}
-                  <button className="cartButton">Պատվիրել</button>
+                  <button
+                    className="cartButton"
+                    onClick={handleCartAdd(bookId)}
+                  >
+                    Պատվիրել
+                  </button>
                 </div>
               </div>
             );
