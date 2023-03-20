@@ -9,6 +9,7 @@ import User from "./Components/User/User";
 import Cart from "./Components/Cart/StLecCart";
 import BookDetail from "./Components/BookDetails.js/BookDetail";
 import Worker from "./Components/Worker/Worker";
+import "./App.css";
 function App() {
   return (
     <BrowserRouter>

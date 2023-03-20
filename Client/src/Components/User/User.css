@@ -28,7 +28,7 @@
 	  box-shadow: 0 0 10px rgb(0 0 0 / 33%);
     background-color:  rgb(133,12,35);
     padding: 15px 25px;
-    width: 250px;
+    width: 300px;
     font-size: 18px;
     color: #ffffff99;
     text-align: center;
@@ -37,7 +37,7 @@
     width: 50%;
     height: 30%;
   }
-  .cartButton {
+  .bookButton {
     top: 90%;
     left: 30%;
     border:none;
@@ -49,8 +49,7 @@
     color: #ffffff99;
     margin-top: 10px;
   }
-  .cartButton:hover {
-    color: rgb(133,12,35);
+  .bookButton:hover {
     text-decoration: none;
     box-shadow:4px 4px #babaae;
    }
@@ -58,6 +57,11 @@
    {
     color: #ffffff99;
     text-decoration: none;
+   }
+   .buttons
+   {
+    display: flex;
+    justify-content: space-between;
    }
 
   

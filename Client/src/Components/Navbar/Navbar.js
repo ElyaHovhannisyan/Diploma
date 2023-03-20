@@ -6,6 +6,11 @@ import { useNavigate } from "react-router-dom";
 import AuthService from "../../Services/auth.service";
 function Navbar() {
   const navigate = useNavigate();
+  const handleLogoutClick = () => {
+    AuthService.logout().then((data) => {
+      navigate("/home");
+    });
+  };
   return (
     <>
       <div className="navbar">
@@ -26,7 +31,7 @@ function Navbar() {
               textDecoration: "none",
             }}
           >
-            Պատվերներ
+            Պատվեր
           </NavLink>
           <NavLink
             to="/order"
@@ -35,7 +40,34 @@ function Navbar() {
               textDecoration: "none",
             }}
           >
-            Դուրս տրված
+            Հաստատված
+          </NavLink>
+          <NavLink
+            to="/delievered"
+            className="user delievered"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            Հանձնած
+          </NavLink>
+          <NavLink
+            to="/fine"
+            className="user fine"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            Տուգանք
+          </NavLink>
+          <NavLink
+            to="/subjects"
+            className="user subject"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            Առարկա
           </NavLink>
           <NavLink to="/search">
             <button className="search">
@@ -51,15 +83,16 @@ function Navbar() {
             style={{
               textDecoration: "none",
             }}
-            onClick={() =>
-              AuthService.logout().then((data) => {
-                navigate("/home");
-              })
-            }
+            onClick={handleLogoutClick}
           >
             Դուրս գալ
           </NavLink>
-          <img src={logout} alt="logoutImg" className="logoutImg"></img>
+          <img
+            src={logout}
+            alt="logoutImg"
+            className="logoutImg"
+            onClick={handleLogoutClick}
+          ></img>
         </div>
       </div>
     </>
