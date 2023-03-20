@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import "../User/User.css";
 import "./StLecCart.css";
 import useCartApi from "../../Services/useCartApi";
+import useBookApi from "../../Services/useBookApi";
 
 function Cart() {
   const [books, setBooks] = useState([]);
   const { getCart, deleteCart } = useCartApi();
+  const { putBook } = useBookApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
   useEffect(() => {
     getCart(token).then((res) => {
@@ -20,13 +22,13 @@ function Cart() {
           const subjectName = Book.Subject.name;
           return { title, subjectName, bookId };
         })
-      );
+      ).then();
     });
   }, []);
   function handleCartRemove(BookId) {
     return function () {
       deleteCart(token, BookId);
-      //updateBook count;
+      putBook(token, BookId, "+");
       setBooks(books.filter((item) => item.bookId !== BookId));
     };
   }
@@ -34,20 +36,25 @@ function Cart() {
   return (
     <>
       <Navbar></Navbar>
-      {books.map(({ title, subjectName, bookId }) => {
-        return (
-          <div className="booklist">
-            <Link to={`/book/id`}>
-              <img src={book} alt={book} className="bookImg" />
-            </Link>
-            <p className="ptitle">{title}</p>
-            <p className="psubject">{subjectName}</p>
-            <button className="deleteButton" onClick={handleCartRemove(bookId)}>
-              Չեղարկել
-            </button>
-          </div>
-        );
-      })}
+      <div>
+        {books.map(({ title, subjectName, bookId }) => {
+          return (
+            <div className="booklist">
+              <Link to={`/book/${bookId}`}>
+                <img src={book} alt={book} className="bookImg" />
+              </Link>
+              <p className="ptitle">{title}</p>
+              <p className="psubject">{subjectName}</p>
+              <button
+                className="deleteButton"
+                onClick={handleCartRemove(bookId)}
+              >
+                Չեղարկել
+              </button>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 }

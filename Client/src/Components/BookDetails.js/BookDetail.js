@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import useBookApi from "../../Services/useBookApi";
 import useCartApi from "../../Services/useCartApi";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function BookDetail() {
+  const navigate = useNavigate();
   const [books, setBooks] = useState([]);
-  const { getBookDetails } = useBookApi();
+  const { getBookDetails, putBook } = useBookApi();
   const { addCart } = useCartApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
   const { id } = useParams();
@@ -56,7 +58,8 @@ function BookDetail() {
   function handleCartAdd(bookId) {
     return function () {
       addCart(token, bookId);
-      //updatecount-
+      putBook(token, bookId, "-");
+      navigate("/cart");
     };
   }
   return (
@@ -78,19 +81,23 @@ function BookDetail() {
                 {city} {date}
               </p>
               <p>{pageCount} էջ</p>
-              {path && (
-                <a
-                  href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Էլ․ տարբերակ
-                </a>
-              )}
-              <p> Առկա է՝ {count}</p>
-              <button className="cartButton" onClick={handleCartAdd(bookId)}>
-                Պատվիրել
-              </button>
+              <p>Առկա է՝ {count}</p>
+              {/* {path && ( */}
+              <div className="buttons">
+                <button className="bookButton">
+                  <a
+                    href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Էլ․ տարբերակ
+                  </a>
+                </button>
+                {/* )} */}
+                <button className="bookButton" onClick={handleCartAdd(bookId)}>
+                  Պատվիրել
+                </button>
+              </div>
             </div>
           </div>
         </div>

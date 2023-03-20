@@ -14,7 +14,8 @@ const getBookDetails = async (req, res) => {
 
 const updateBookCount = async (req, res) => {
   const id = req.params["id"];
-  const { error, book } = await updateBook(id);
+  const state = req.body.state;
+  const { error, book } = await updateBook(id, state);
   if (error) res.status(406).send("Can't update a book");
   res.status(200).send(book);
 };

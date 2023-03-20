@@ -6,11 +6,13 @@ import { useState, useEffect } from "react";
 import useBookApi from "../../Services/useBookApi";
 import useCartApi from "../../Services/useCartApi";
 import useSubjectApi from "../../Services/useSubjectApi";
+import { useNavigate } from "react-router-dom";
 
 function User() {
+  const navigate = useNavigate();
   const [books, setBooks] = useState([]);
   const [subjects, setSubjects] = useState([]);
-  const { getLecturerBooks, getStudentBooks } = useBookApi();
+  const { getLecturerBooks, getStudentBooks, putBook } = useBookApi();
   const { addCart } = useCartApi();
   const { getSubjects } = useSubjectApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
@@ -116,7 +118,8 @@ function User() {
   function handleCartAdd(bookId) {
     return function () {
       addCart(token, bookId);
-      //updatecount-
+      putBook(token, bookId, "-");
+      navigate("/cart");
     };
   }
   return (

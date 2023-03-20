@@ -26,10 +26,17 @@ const useBookApi = () => {
       headers: headers,
     });
   };
+  const putBook = async (token, id, state) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios.put(url + `/${id}`, { state }, { headers });
+  };
   return {
     getLecturerBooks,
     getStudentBooks,
     getBookDetails,
+    putBook,
   };
 };
 

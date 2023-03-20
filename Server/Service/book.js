@@ -31,11 +31,15 @@ async function takeBook(id) {
     return { error };
   }
 }
-async function updateBook(id) {
+async function updateBook(id, state) {
   try {
     const b = await Book.findByPk(id);
+    let count = b.count;
+    console.log(state);
+    if (state === "+") count = count + 1;
+    else if (state === "-") count = count - 1;
     const book = await Book.update(
-      { count: b.count - 1 },
+      { count },
       {
         where: { id },
       }
