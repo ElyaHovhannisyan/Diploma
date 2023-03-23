@@ -68,7 +68,7 @@ function Register() {
       <div className="book_img">
         <form className="transparent" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-inner">
-            <label className="username">Մուտքանուն</label>
+            <label className="username">Մուտքանուն*</label>
             <input
               {...register("username")}
               onChange={(e) => {
@@ -76,7 +76,7 @@ function Register() {
               }}
             />
             {errors.username && <p>*{errors.username.message}</p>}
-            <label className="email">Էլեկտրոնային հասցե</label>
+            <label className="email">Էլեկտրոնային հասցե*</label>
             <input
               {...register("email")}
               onChange={(e) => {
@@ -85,7 +85,7 @@ function Register() {
               placeholder="*@polytechnic.am"
             />
             {errors.email && <p>*{errors.email.message}</p>}
-            <label>Գաղտնաբառ</label>
+            <label>Գաղտնաբառ*</label>
             <input
               {...register("password")}
               type="password"
@@ -103,7 +103,7 @@ function Register() {
               }}
             />
             {errors.password && <p>*{errors.password.message}</p>}
-            <label>Գաղտնաբառի կրկնություն</label>
+            <label>Գաղտնաբառի կրկնություն*</label>
             <input
               type="password"
               autoComplete="new-password"

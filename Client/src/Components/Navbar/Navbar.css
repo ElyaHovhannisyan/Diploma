@@ -6,8 +6,16 @@
   box-shadow: 0 9px 13px 7px rgb(0 0 0 / 33%);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 18px;
 }
+
+.navbarLeft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .navbarLeft a
 {
   margin-right: 25px;
@@ -33,7 +41,19 @@
   color: #002147;
   font-size: 18px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
+.search span {
+  text-decoration: none;
+}
+
+.search img {
+  margin-right: 10px;
+}
+
 .navbarRight img
 {
   margin-left: 5px;
@@ -43,6 +63,23 @@
 {
   box-shadow:4px 4px rgb(133,12,35);
 }
+.navbarRight {
+  display: flex;
+  align-items: center;
+  /* margin-right: 60px; */
+}
+
+.navbarRight .user.logout {
+  display: inline-block;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+.navbarRight .logoutImg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 
 .navbarLeftworker{
   margin-left: 245px;

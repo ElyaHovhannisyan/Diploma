@@ -58,8 +58,6 @@ body
 	left: 0;
 	right: 0;
 	width: 400px;
-  display: flex;
-  align-items: center;
 }
 .transparent p
 {
@@ -70,19 +68,21 @@ body
 }
 
 .form-inner {
-    position: relative;
- }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 
  .form-inner label {
-    display: block;
-    padding-left: 15px;
     color: #ffffff99;
     text-transform: uppercase;
     font-size: 14px;
  }
 
  .form-inner input {
-    width: 70%;
     margin: 15px 0 15px;
     padding: 0 30px;
     border-width: 0;

@@ -8,17 +8,18 @@ const {
 const addToCart = async (req, res) => {
   const UserId = req.user.id;
   const BookId = req.params["bookId"];
-  const { error, cart } = await addToCartService(UserId, BookId);
+  const { error, cart, message } = await addToCartService(UserId, BookId);
 
   if (error) {
-    console.error(error);
     res.status(400).json({
-      error: {
-        message: "Error occurred while creating cart.",
-      },
+      error: error,
     });
   }
-
+  if (message) {
+    res.status(200).json({
+      message,
+    });
+  }
   res.status(200).json(cart);
 };
 

@@ -11,6 +11,7 @@ const Op = Sequelize.Op;
 
 const addToCartService = async (UserId, BookId) => {
   try {
+    console.log("User" + UserId, "  book" + BookId);
     const cart = await Cart.findOne({
       where: { UserId },
     });
@@ -21,14 +22,9 @@ const addToCartService = async (UserId, BookId) => {
       },
     });
     if (cartAssignment) {
-      return { cart: "Գիրքն արդեն պատվիրված է" };
+      return { message: "Գիրքն արդեն պատվիրված է" };
     }
     const book = await Book.findByPk(BookId);
-
-    if ((book.count = 0)) {
-      return { cart: "Գիրքն այս պահին առկա չէ" };
-    }
-
     const res = await CartAssignment.create({
       CartId: cart.id,
       BookId: BookId,

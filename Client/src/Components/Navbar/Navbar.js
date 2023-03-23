@@ -76,23 +76,17 @@ function Navbar() {
             </button>
           </NavLink>
         </div>
-        <div className="navbarRight">
+        <div className="navbarRight" onClick={handleLogoutClick}>
           <NavLink
             to="/home"
             className="user logout"
             style={{
               textDecoration: "none",
             }}
-            onClick={handleLogoutClick}
           >
             Դուրս գալ
           </NavLink>
-          <img
-            src={logout}
-            alt="logoutImg"
-            className="logoutImg"
-            onClick={handleLogoutClick}
-          ></img>
+          <img src={logout} alt="logoutImg" className="logoutImg"></img>
         </div>
       </div>
     </>

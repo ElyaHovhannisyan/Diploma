@@ -5,7 +5,7 @@
 .needslist
 {
   display: flex;
-    margin: 30px 50px 10px 30px;
+    margin: 30px 50px 30px 30px;
 	  border-radius: 30px;
 	  box-shadow: 0 0 10px rgb(0 0 0 / 33%);
     background-color: rgba(0, 33, 71); 
