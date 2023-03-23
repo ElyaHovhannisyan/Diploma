@@ -57,9 +57,13 @@ function BookDetail() {
   } = books;
   function handleCartAdd(bookId) {
     return function () {
-      addCart(token, bookId);
-      putBook(token, bookId, "-");
-      navigate("/cart");
+      addCart(token, bookId).then((response) => {
+        if (response.data.message) alert(response.data.message);
+        else {
+          putBook(token, bookId, "-");
+          navigate("/cart");
+        }
+      });
     };
   }
   return (

@@ -9,8 +9,17 @@ const useSubjectApi = () => {
       headers: headers,
     });
   };
+  const getAllSubjects = async (token) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios("api/allSubjects", {
+      headers: headers,
+    });
+  };
   return {
     getSubjects,
+    getAllSubjects,
   };
 };
 

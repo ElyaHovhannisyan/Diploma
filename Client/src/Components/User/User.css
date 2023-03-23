@@ -16,6 +16,9 @@
     align-items: center;
     flex-direction: column; 
 }
+.needslist p.active{
+  color: rgb(133,12,35);
+}
 .needslist p
 {
   text-decoration: underline;

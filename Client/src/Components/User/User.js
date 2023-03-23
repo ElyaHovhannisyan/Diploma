@@ -12,7 +12,6 @@ function User() {
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
   const [subjects, setSubjects] = useState([]);
-  const [error, setError] = useState([]);
   const { getLecturerBooks, getStudentBooks, putBook } = useBookApi();
   const { addCart } = useCartApi();
   const { getSubjects } = useSubjectApi();
@@ -28,19 +27,17 @@ function User() {
               title,
               subjectName,
               path,
-              count,
               authorsName = [];
             item.map((book) => {
               bookId = book.id;
               title = book.title;
               subjectName = book.Subject.name;
               path = book.path;
-              count = book.count;
               book.BookDetails.map((item) => {
                 authorsName.push(item.Author.name);
               });
             });
-            return { title, subjectName, path, bookId, count, authorsName };
+            return { title, subjectName, path, bookId, authorsName };
           })
         );
       });
@@ -73,7 +70,7 @@ function User() {
                     subjectName,
                     bookId,
                     path,
-                    count,
+
                     authorsName,
                   };
                 })
@@ -96,7 +93,7 @@ function User() {
             const authorsName = item.BookDetails.map((item) => {
               return item.Author.name;
             });
-            return { title, subjectName, bookId, path, count, authorsName };
+            return { title, subjectName, bookId, path, authorsName };
           })
         );
       });
@@ -111,37 +108,31 @@ function User() {
               title,
               subjectName,
               path,
-              count,
               authorsName = [];
             item.map((book) => {
               bookId = book.id;
               title = book.title;
               subjectName = book.Subject.name;
               path = book.path;
-              count = book.count;
               book.BookDetails.map((item) => {
                 authorsName.push(item.Author.name);
               });
             });
-            return { title, subjectName, path, bookId, count, authorsName };
+            return { title, subjectName, path, bookId, authorsName };
           })
         );
       });
     };
   }
-  function handleCartAdd(bookId, bookCount) {
+  function handleCartAdd(bookId) {
     return function () {
-      if ((bookCount = 0)) {
-        setError("Գիրքն այս պահին առկա չէ");
-      } else {
-        addCart(token, bookId).then((response) => {
-          if (response.data.message) setError(response.data.message);
-          else {
-            putBook(token, bookId, "-");
-            navigate("/cart");
-          }
-        });
-      }
+      addCart(token, bookId).then((response) => {
+        if (response.data.message) alert(response.data.message);
+        else {
+          putBook(token, bookId, "-");
+          navigate("/cart");
+        }
+      });
     };
   }
   return (
@@ -169,45 +160,42 @@ function User() {
             })}
         </div>
         <div>
-          {books.map(
-            ({ title, subjectName, path, bookId, count, authorsName }) => {
-              return (
-                <div className="booklist">
-                  <Link to={`/book/${bookId}`}>
-                    <img src={book} alt={book} className="bookImg" />
-                  </Link>
-                  <div className="bookDescription">
-                    <p className="ptitle">{title}</p>
-                    <p className="psubject">{subjectName}</p>
-                    {authorsName.map((item) => {
-                      return <p>{item}</p>;
-                    })}
+          {books.map(({ title, subjectName, path, bookId, authorsName }) => {
+            return (
+              <div className="booklist">
+                <Link to={`/book/${bookId}`}>
+                  <img src={book} alt={book} className="bookImg" />
+                </Link>
+                <div className="bookDescription">
+                  <p className="ptitle">{title}</p>
+                  <p className="psubject">{subjectName}</p>
+                  {authorsName.map((item) => {
+                    return <p>{item}</p>;
+                  })}
 
-                    {/* {path && ( */}
-                    <div className="buttons">
-                      <button className="bookButton">
-                        <a
-                          href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Էլ․ տարբերակ
-                        </a>
-                      </button>
-                      {/* )} */}
-                      <button
-                        className="bookButton"
-                        onClick={handleCartAdd(bookId, count)}
+                  {/* {path && ( */}
+                  <div className="buttons">
+                    <button className="bookButton">
+                      <a
+                        href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        Պատվիրել
-                      </button>
-                    </div>
-                    {error && <p>{error}</p>}
+                        Էլ․ տարբերակ
+                      </a>
+                    </button>
+                    {/* )} */}
+                    <button
+                      className="bookButton"
+                      onClick={handleCartAdd(bookId)}
+                    >
+                      Պատվիրել
+                    </button>
                   </div>
                 </div>
-              );
-            }
-          )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </>

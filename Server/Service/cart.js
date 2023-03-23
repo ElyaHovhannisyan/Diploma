@@ -24,7 +24,11 @@ const addToCartService = async (UserId, BookId) => {
     if (cartAssignment) {
       return { message: "Գիրքն արդեն պատվիրված է" };
     }
+
     const book = await Book.findByPk(BookId);
+    if (book.count === 0) {
+      return { message: "Գիրքն այս պահին առկա չէ" };
+    }
     const res = await CartAssignment.create({
       CartId: cart.id,
       BookId: BookId,

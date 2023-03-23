@@ -19,6 +19,15 @@ async function getSubject(LecturerId) {
   }
 }
 
+async function getSubjects() {
+  try {
+    const subjects = await Subject.findAll();
+    return { subjects };
+  } catch (error) {
+    return { error };
+  }
+}
 module.exports = {
   getSubject,
+  getSubjects,
 };

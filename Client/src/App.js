@@ -10,6 +10,7 @@ import Cart from "./Components/Cart/StLecCart";
 import BookDetail from "./Components/BookDetails.js/BookDetail";
 import Worker from "./Components/Worker/Worker";
 import "./App.css";
+import Subject from "./Components/Subject/Subject";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ function App() {
         <Route exact path={"/cart"} element={<Cart />} />
         <Route exact path={"/book/:id"} element={<BookDetail />} />
         <Route exact path={"/worker"} element={<Worker />} />
+        <Route exact path={"/subjects"} element={<Subject />} />
       </Routes>
       <Footer />
     </BrowserRouter>
