@@ -163,7 +163,7 @@ function User() {
           {books.map(({ title, subjectName, path, bookId, authorsName }) => {
             return (
               <div className="booklist">
-                <Link to={`/book/${bookId}`}>
+                <Link to={`/book1/${bookId}`}>
                   <img src={book} alt={book} className="bookImg" />
                 </Link>
                 <div className="bookDescription">

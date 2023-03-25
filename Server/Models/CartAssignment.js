@@ -30,7 +30,7 @@ const CartAssignment = sequelize.define(
     },
   },
   {
-    createdAt: false,
+    createdAt: true,
     updatedAt: false,
     timestamps: false,
   }

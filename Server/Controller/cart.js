@@ -30,7 +30,7 @@ const getCart = async (req, res) => {
 };
 
 const deleteCart = async (req, res) => {
-  const UserId = req.user.id;
+  const UserId = req.params["userId"];
   const bookId = req.params["bookId"];
   const { error, cart } = await deleteCartContent(UserId, bookId);
   if (error) {

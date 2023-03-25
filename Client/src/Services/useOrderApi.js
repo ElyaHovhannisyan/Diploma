@@ -1,20 +1,23 @@
 import axios from "axios";
-const useCartApi = () => {
-  const url = "/api/cart";
-  const addCart = async (token, bookId) => {
+const useOrderApi = () => {
+  const url = "/api/order";
+  const addOrder = async (token, bookId, bookNumber, UserId) => {
     const headers = {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
     return axios.post(
       url + `/${bookId}`,
-      {},
+      {
+        bookNumber,
+        UserId,
+      },
       {
         headers: headers,
       }
     );
   };
-  const getCart = async (token) => {
+  const getOrder = async (token) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -22,7 +25,7 @@ const useCartApi = () => {
       headers: headers,
     });
   };
-  const deleteCart = async (token, BookId, UserId) => {
+  const deleteOrder = async (token, BookId, UserId) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -30,20 +33,20 @@ const useCartApi = () => {
       headers: headers,
     });
   };
-  const getAllCart = async (token) => {
+  const getAllOrder = async (token) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return axios("api/carts", {
+    return axios("api/orders", {
       headers: headers,
     });
   };
   return {
-    addCart,
-    deleteCart,
-    getCart,
-    getAllCart,
+    addOrder,
+    deleteOrder,
+    getOrder,
+    getAllOrder,
   };
 };
 
-export default useCartApi;
+export default useOrderApi;

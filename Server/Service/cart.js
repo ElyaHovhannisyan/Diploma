@@ -5,13 +5,9 @@ const { Subject } = require("../Models/Subject");
 const { User } = require("../Models/User");
 const { Student } = require("../Models/Students");
 const { Lecturer } = require("../Models/Lecturer");
-const { Worker } = require("../Models/Worker");
-const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
 
 const addToCartService = async (UserId, BookId) => {
   try {
-    console.log("User" + UserId, "  book" + BookId);
     const cart = await Cart.findOne({
       where: { UserId },
     });
@@ -66,6 +62,7 @@ const getCartContent = async (UserId) => {
 
 const deleteCartContent = async (UserId, bookId) => {
   try {
+    console.log(UserId);
     const cart = await Cart.findOne({
       where: { UserId },
     });

@@ -11,6 +11,8 @@ import BookDetail from "./Components/BookDetails.js/BookDetail";
 import Worker from "./Components/Worker/Worker";
 import "./App.css";
 import Subject from "./Components/Subject/Subject";
+import Orders from "./Components/Worker/Orders";
+import Order from "./Components/User/Order";
 function App() {
   return (
     <BrowserRouter>
@@ -23,8 +25,19 @@ function App() {
         <Route exact path={"/search"} element={<Search />} />
         <Route exact path={"/user"} element={<User />} />
         <Route exact path={"/cart"} element={<Cart />} />
-        <Route exact path={"/book/:id"} element={<BookDetail />} />
+        <Route
+          exact
+          path={"/book1/:id/"}
+          element={<BookDetail text="Պատվիրել" />}
+        />
+        <Route
+          exact
+          path={"/book2/:id/"}
+          element={<BookDetail text="Չեղարկել" />}
+        />
         <Route exact path={"/worker"} element={<Worker />} />
+        <Route exact path={"/orders"} element={<Orders />} />
+        <Route exact path={"/order"} element={<Order />} />
         <Route exact path={"/subjects"} element={<Subject />} />
       </Routes>
       <Footer />

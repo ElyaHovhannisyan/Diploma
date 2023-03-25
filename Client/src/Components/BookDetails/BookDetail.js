@@ -6,12 +6,13 @@ import useCartApi from "../../Services/useCartApi";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function BookDetail() {
+function BookDetail(props) {
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
   const { getBookDetails, putBook } = useBookApi();
-  const { addCart } = useCartApi();
+  const { addCart, deleteCart } = useCartApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
+  const UserId = JSON.parse(localStorage.getItem("me"))?.UserId;
   const { id } = useParams();
   useEffect(() => {
     getBookDetails(token, id).then((res) => {
@@ -56,15 +57,18 @@ function BookDetail() {
     authorsName,
   } = books;
   function handleCartAdd(bookId) {
-    return function () {
-      addCart(token, bookId).then((response) => {
-        if (response.data.message) alert(response.data.message);
-        else {
-          putBook(token, bookId, "-");
-          navigate("/cart");
-        }
-      });
-    };
+    addCart(token, bookId).then((response) => {
+      if (response.data.message) alert(response.data.message);
+      else {
+        putBook(token, bookId, "-");
+        navigate("/cart");
+      }
+    });
+  }
+  function handleCartRemove(BookId) {
+    deleteCart(token, BookId, UserId).then(
+      putBook(token, BookId, "+").then(navigate("/cart"))
+    );
   }
   return (
     <>
@@ -98,8 +102,19 @@ function BookDetail() {
                   </a>
                 </button>
                 {/* )} */}
-                <button className="bookButton" onClick={handleCartAdd(bookId)}>
-                  Պատվիրել
+                <button
+                  className="bookButton"
+                  onClick={() => {
+                    console.log("I work");
+                    if (props.text === "Պատվիրել") {
+                      console.log("Hiii", bookId);
+                      handleCartAdd(bookId);
+                    } else {
+                      handleCartRemove(bookId);
+                    }
+                  }}
+                >
+                  {props.text}
                 </button>
               </div>
             </div>

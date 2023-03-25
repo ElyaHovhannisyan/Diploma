@@ -2,21 +2,16 @@ import Navbar from "../Navbar/Navbar";
 import book from "../../img/book.png";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../User/User.css";
-import "./StLecCart.css";
-import useCartApi from "../../Services/useCartApi";
-import useBookApi from "../../Services/useBookApi";
+import useOrderApi from "../../Services/useOrderApi";
 
-function Cart() {
+function Order() {
   const [books, setBooks] = useState([]);
-  const { getCart, deleteCart } = useCartApi();
-  const { putBook } = useBookApi();
+  const { getOrder } = useOrderApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
-  const UserId = JSON.parse(localStorage.getItem("me"))?.UserId;
   useEffect(() => {
-    getCart(token).then((res) => {
+    getOrder(token).then((res) => {
       setBooks(
-        res.data.cart.map((item) => {
+        res.data.map((item) => {
           const { Book } = item;
           const bookId = Book.id;
           const title = Book.title;
@@ -26,13 +21,6 @@ function Cart() {
       ).then();
     });
   }, []);
-  function handleCartRemove(BookId) {
-    return function () {
-      deleteCart(token, BookId, UserId);
-      putBook(token, BookId, "+");
-      setBooks(books.filter((item) => item.bookId !== BookId));
-    };
-  }
 
   return (
     <>
@@ -41,17 +29,11 @@ function Cart() {
         {books.map(({ title, subjectName, bookId }) => {
           return (
             <div className="booklist">
-              <Link to={`/book2/${bookId}`}>
+              <Link to={`/book/${bookId}`}>
                 <img src={book} alt={book} className="bookImg" />
               </Link>
               <p className="ptitle">{title}</p>
               <p className="psubject">{subjectName}</p>
-              <button
-                className="deleteButton"
-                onClick={handleCartRemove(bookId)}
-              >
-                Չեղարկել
-              </button>
             </div>
           );
         })}
@@ -60,4 +42,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default Order;
