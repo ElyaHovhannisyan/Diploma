@@ -25,12 +25,15 @@
   color:  rgb(133,12,35);
   font-weight: bold;
 }
+.active{
+  color:  rgb(133,12,35)!important;
+  font-weight: bold;
+}
 .user
 {
     color: white;
     cursor: pointer;
 }
-
 .search
 {
   padding: 1px 24px;

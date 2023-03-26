@@ -7,7 +7,7 @@ import Register from "./Components/Register/Register";
 import Search from "./Components/Search/Search";
 import User from "./Components/User/User";
 import Cart from "./Components/Cart/StLecCart";
-import BookDetail from "./Components/BookDetails.js/BookDetail";
+import BookDetail from "./Components/BookDetails/BookDetail";
 import Worker from "./Components/Worker/Worker";
 import "./App.css";
 import Subject from "./Components/Subject/Subject";

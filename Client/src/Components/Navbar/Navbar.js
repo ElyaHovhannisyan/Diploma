@@ -63,6 +63,7 @@ function Navbar() {
           <NavLink
             to="/subjects"
             className="user subject"
+            activeClassName="active"
             style={{
               textDecoration: "none",
             }}
