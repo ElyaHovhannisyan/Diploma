@@ -14,6 +14,7 @@ import Subject from "./Components/Subject/Subject";
 import Orders from "./Components/Worker/Orders";
 import Order from "./Components/User/Order";
 import StudentBooks from "./Components/User/StudentBooks";
+import Deliever from "./Components/User/Deliever";
 function App() {
   return (
     <BrowserRouter>
@@ -44,6 +45,7 @@ function App() {
         <Route exact path={"/worker"} element={<Worker />} />
         <Route exact path={"/orders"} element={<Orders />} />
         <Route exact path={"/order"} element={<Order />} />
+        <Route exact path={"/delievered"} element={<Deliever />} />
         <Route exact path={"/subjects"} element={<Subject />} />
       </Routes>
       <Footer />

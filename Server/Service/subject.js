@@ -32,28 +32,54 @@ async function getSubjects() {
 async function getSubjetcsByGroup(StudentId) {
   try {
     const student = await Student.findByPk(StudentId, {
-      attributes: ["group"],
+      attributes: ["groupNumber"],
     });
-    const group = student.group.match(/\d+/)[0];
+    console.log("Student" + StudentId);
+    const group = student.groupNumber.match(/\d+/)[0];
+    console.log(group);
     const groupNumber = group.substr(1, 2);
     const admittedYear = group[0];
     const currentDate = new Date();
     const month = `${currentDate.getMonth() + 1}`;
     const year = `${currentDate.getFullYear()}`.substr(3, 1);
     var course = year - admittedYear;
+    console.log(course);
     let semester;
-    if (month >= 8 && month <= 12) {
-      if (course > 0) course = course + 1;
-      else course = course + 11;
-      semester = course * 2 - 1;
+    if ((month >= 8 && month <= 12) || month == 1) {
+      switch ((11 + course) % 10) {
+        case 1:
+          semester = 1;
+          break;
+        case 2:
+          semester = 3;
+          break;
+        case 3:
+          semester = 5;
+          break;
+        case 4:
+          semester = 7;
+          break;
+      }
     } else {
-      if (course < 0) course = course + 10;
-      if (month == 1) semester = course * 2 - 1;
-      else semester = course * 2;
+      switch ((10 + course) % 10) {
+        case 1:
+          semester = 2;
+          break;
+        case 2:
+          semester = 4;
+          break;
+        case 3:
+          semester = 6;
+          break;
+        case 4:
+          semester = 8;
+          break;
+      }
     }
+    console.log(semester);
     const lessons = await Lesson.findAll({
       attributes: ["SubjectId"],
-      where: { g: groupNumber, semester },
+      where: { groupNumber, semester },
       include: [
         {
           model: Subject,
@@ -69,13 +95,13 @@ async function getSubjetcsByGroup(StudentId) {
 async function getSubjetcsBySemester(StudentId, semester) {
   try {
     const student = await Student.findByPk(StudentId, {
-      attributes: ["group"],
+      attributes: ["groupNumber"],
     });
-    const group = student.group.match(/\d+/)[0];
+    const group = student.groupNumber.match(/\d+/)[0];
     const groupNumber = group.substr(1, 2);
     const lessons = await Lesson.findAll({
       attributes: ["SubjectId"],
-      where: { g: groupNumber, semester },
+      where: { groupNumber, semester },
       include: [
         {
           model: Subject,

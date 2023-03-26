@@ -4,12 +4,14 @@ import WorkerNavbar from "../Navbar/WorkerNavbar";
 import "./Worker.css";
 import accept from "../../img/icons8-checkmark-48.png";
 import useOrderApi from "../../Services/useOrderApi";
+import useDelieverApi from "../../Services/useDelieverApi";
 import { useNavigate } from "react-router-dom";
 function Orders() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [shouldReload, setShouldReload] = useState(false);
   const { deleteOrder, getAllOrder } = useOrderApi();
+  const { addDeliever } = useDelieverApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
   useEffect(() => {
     getAllOrder(token).then((res) => {
@@ -39,7 +41,7 @@ function Orders() {
     });
   }, [[], shouldReload]);
   const handleImageClick = (userId, bookId) => {
-    //AddDeliever
+    addDeliever(token, bookId, userId);
     deleteOrder(token, bookId, userId).then(setShouldReload(true));
   };
   return (

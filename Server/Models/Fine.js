@@ -1,9 +1,9 @@
 const DataTypes = require("sequelize");
+const { Order } = require("./Order");
 const { sequelize } = require("../dbConfig");
-const { Subject } = require("./Subject");
 
-const Lesson = sequelize.define(
-  "Lessons",
+const Fine = sequelize.define(
+  "Fines",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,21 +11,13 @@ const Lesson = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    SubjectId: {
+    OrderId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "Subjects",
+        model: "Orders",
         key: "id",
       },
-    },
-    groupNumber: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    semester: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
     },
   },
   {
@@ -34,6 +26,8 @@ const Lesson = sequelize.define(
     timestamps: false,
   }
 );
-Subject.hasMany(Lesson, { foreignKey: "SubjectId" });
-Lesson.belongsTo(Subject);
-module.exports = { Lesson };
+
+Order.hasOne(Fine, { foreignKey: "OrderId" });
+Fine.belongsTo(Order);
+
+module.exports = { Fine };

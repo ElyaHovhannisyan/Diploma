@@ -36,7 +36,7 @@ for (let i = 1; i < lines.length; i++) {
   students.push({
     name: fields[0],
     surname: fields[1],
-    group: fields[2],
+    groupNumber: fields[2],
     email: fields[3],
   });
 }
@@ -104,7 +104,7 @@ for (let i = 1; i < lines.length; i++) {
   const fields = lines[i].split(", ");
   lessons.push({
     SubjectId: fields[0],
-    g: fields[1],
+    groupNumber: fields[1],
     semester: fields[2],
   });
 }

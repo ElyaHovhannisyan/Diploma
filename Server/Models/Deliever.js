@@ -1,10 +1,10 @@
 const DataTypes = require("sequelize");
 const { sequelize } = require("../dbConfig");
-const { Cart } = require("./Cart");
+const { User } = require("./User");
 const { Book } = require("./Book");
 
-const CartAssignment = sequelize.define(
-  "CartAssignments",
+const Deliever = sequelize.define(
+  "Delievers",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -12,11 +12,11 @@ const CartAssignment = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    CartId: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "Carts",
+        model: "Users",
         key: "id",
       },
     },
@@ -30,15 +30,15 @@ const CartAssignment = sequelize.define(
     },
   },
   {
-    createdAt: true,
+    createdAt: false,
     updatedAt: false,
-    timestamps: true,
+    timestamps: false,
   }
 );
 
-Cart.hasMany(CartAssignment, { foreignKey: "CartId" });
-CartAssignment.belongsTo(Cart);
-Book.hasMany(CartAssignment, { foreignKey: "BookId" });
-CartAssignment.belongsTo(Book);
+User.hasMany(Deliever, { foreignKey: "UserId" });
+Deliever.belongsTo(User);
+Book.hasMany(Deliever, { foreignKey: "BookId" });
+Deliever.belongsTo(Book);
 
-module.exports = { CartAssignment };
+module.exports = { Deliever };

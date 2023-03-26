@@ -18,7 +18,7 @@ const Student = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    group: {
+    groupNumber: {
       type: DataTypes.STRING,
       allowNull: false,
     },
