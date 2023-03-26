@@ -4,12 +4,10 @@ const { authJwt } = require("../Middleware/authJWT");
 const {
   getBookDetails,
   updateBookCount,
-  getStudentBooks,
-  getLecturerBooks,
+  getBooksBySubjectId,
 } = require("../Controller/book");
 
 router.get("/books/:id", [authJwt.verifyToken], getBookDetails);
 router.put("/books/:id", [authJwt.verifyToken], updateBookCount);
-router.get("/books/semester/:semester", [authJwt.verifyToken], getStudentBooks);
-router.get("/books/subject/:id", [authJwt.verifyToken], getLecturerBooks);
+router.get("/books/subject/:id", [authJwt.verifyToken], getBooksBySubjectId);
 module.exports = router;

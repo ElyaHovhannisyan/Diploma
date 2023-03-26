@@ -18,7 +18,9 @@ const register = async (req, res) => {
       LecturerId: req.body.LecturerId,
       WorkerId: req.body.WorkerId,
     });
-    await Cart.create({ UserId: user.id });
+    if (!user.WorkerId) {
+      await Cart.create({ UserId: user.id });
+    }
     const token = jwt.sign(
       {
         id: user.id,

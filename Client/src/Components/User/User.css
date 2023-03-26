@@ -24,6 +24,26 @@
   text-decoration: underline;
   cursor: pointer;
 }
+h2 {
+  color: rgba(0, 33, 71);
+} 
+.subjects {
+  margin-top: 30px;
+}
+.subjectsElement{
+    display: inline-block;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 33%);
+    background-color:  rgb(133,12,35);
+    padding: 15px 25px;
+    font-size: 18px;
+    color: #ffffff99;
+    text-align: center;
+    margin-right: 10px;
+    width: 100px;
+    cursor: pointer;
+}
+
 .booklist {
     display: inline-block;
     margin: 30px 10px;

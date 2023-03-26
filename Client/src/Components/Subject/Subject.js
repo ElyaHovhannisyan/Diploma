@@ -12,7 +12,7 @@ function Subject() {
   const [books, setBooks] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [activeColor, setActiveColor] = useState("");
-  const { getLecturerBooks, putBook } = useBookApi();
+  const { getBooksBySubjectId, putBook } = useBookApi();
   const { addCart } = useCartApi();
   const { getAllSubjects } = useSubjectApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
@@ -30,7 +30,7 @@ function Subject() {
       })
       .then((subjects) => {
         if (subjects.length > 0) {
-          getLecturerBooks(token, subjects[0].subjectId).then((res) => {
+          getBooksBySubjectId(token, subjects[0].subjectId).then((res) => {
             setBooks(
               res.data.map((item) => {
                 const bookId = item.id;
@@ -56,7 +56,7 @@ function Subject() {
   function handleSubjectBooks(id, index) {
     return function () {
       setActiveColor(index);
-      getLecturerBooks(token, id).then((res) => {
+      getBooksBySubjectId(token, id).then((res) => {
         setBooks(
           res.data.map((item) => {
             const bookId = item.id;
@@ -106,7 +106,7 @@ function Subject() {
           {books.map(({ title, subjectName, path, bookId, authorsName }) => {
             return (
               <div className="booklist">
-                <Link to={`/book/${bookId}`}>
+                <Link to={`/book1/${bookId}`}>
                   <img src={book} alt={book} className="bookImg" />
                 </Link>
                 <div className="bookDescription">

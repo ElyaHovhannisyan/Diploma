@@ -10,7 +10,7 @@ const useBookApi = () => {
       headers: headers,
     });
   };
-  const getLecturerBooks = async (token, id) => {
+  const getBooksBySubjectId = async (token, id) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -33,7 +33,7 @@ const useBookApi = () => {
     return axios.put(url + `/${id}`, { state }, { headers });
   };
   return {
-    getLecturerBooks,
+    getBooksBySubjectId,
     getStudentBooks,
     getBookDetails,
     putBook,

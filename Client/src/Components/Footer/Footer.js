@@ -13,7 +13,7 @@ function Footer() {
   return (
     <footer className="footer-distributed">
       <div className="footer_left">
-        <h2>Միացի՜ր պոլիտեխնիկին</h2>
+        <h2>Միացի՜ր Պոլիտեխնիկին</h2>
         <div className="social_media">
           <a
             href="https://www.facebook.com/polytech.am/"

@@ -5,6 +5,7 @@ const { Subject } = require("../Models/Subject");
 const { User } = require("../Models/User");
 const { Student } = require("../Models/Students");
 const { Lecturer } = require("../Models/Lecturer");
+const { Order } = require("../Models/Order");
 
 const addToCartService = async (UserId, BookId) => {
   try {
@@ -17,7 +18,13 @@ const addToCartService = async (UserId, BookId) => {
         CartId: cart.id,
       },
     });
-    if (cartAssignment) {
+    const order = await Order.findOne({
+      where: {
+        UserId,
+        BookId,
+      },
+    });
+    if (cartAssignment || order) {
       return { message: "Գիրքն արդեն պատվիրված է" };
     }
 

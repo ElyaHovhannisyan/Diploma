@@ -105,9 +105,7 @@ function BookDetail(props) {
                 <button
                   className="bookButton"
                   onClick={() => {
-                    console.log("I work");
                     if (props.text === "Պատվիրել") {
-                      console.log("Hiii", bookId);
                       handleCartAdd(bookId);
                     } else {
                       handleCartRemove(bookId);

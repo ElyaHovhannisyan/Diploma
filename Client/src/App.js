@@ -13,6 +13,7 @@ import "./App.css";
 import Subject from "./Components/Subject/Subject";
 import Orders from "./Components/Worker/Orders";
 import Order from "./Components/User/Order";
+import StudentBooks from "./Components/User/StudentBooks";
 function App() {
   return (
     <BrowserRouter>
@@ -34,6 +35,11 @@ function App() {
           exact
           path={"/book2/:id/"}
           element={<BookDetail text="Չեղարկել" />}
+        />
+        <Route
+          exact
+          path={"/subjectBooks/:subjectId"}
+          element={<StudentBooks />}
         />
         <Route exact path={"/worker"} element={<Worker />} />
         <Route exact path={"/orders"} element={<Orders />} />

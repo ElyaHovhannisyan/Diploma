@@ -18,11 +18,22 @@ function Navbar() {
           <NavLink
             to="/user"
             className="user home"
+            activeClassName="active"
             style={{
               textDecoration: "none",
             }}
           >
             Գլխավոր
+          </NavLink>
+          <NavLink
+            to="/subjects"
+            className="user subject"
+            activeClassName="active"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            Առարկաներ
           </NavLink>
           <NavLink
             to="/cart"
@@ -60,16 +71,7 @@ function Navbar() {
           >
             Տուգանք
           </NavLink>
-          <NavLink
-            to="/subjects"
-            className="user subject"
-            activeClassName="active"
-            style={{
-              textDecoration: "none",
-            }}
-          >
-            Առարկա
-          </NavLink>
+
           <NavLink to="/search">
             <button className="search">
               <img src={searchIcon} alt="searchIcon"></img>

@@ -1,5 +1,6 @@
 import Navbar from "../Navbar/Navbar";
 import book from "../../img/book.png";
+import subject from "../../img/bookS.png";
 import { Link } from "react-router-dom";
 import "./User.css";
 import { useState, useEffect } from "react";
@@ -12,36 +13,26 @@ function User() {
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
   const [subjects, setSubjects] = useState([]);
-  const { getLecturerBooks, getStudentBooks, putBook } = useBookApi();
+  const [currentSemester, setCurrentSemester] = useState("");
+  const { getBooksBySubjectId, putBook } = useBookApi();
   const { addCart } = useCartApi();
-  const { getSubjects } = useSubjectApi();
+  const { getSubjects, getSemesterSubjectsByGroup, getSemesterSubjects } =
+    useSubjectApi();
   const token = JSON.parse(localStorage.getItem("me"))?.token;
   const studentId = JSON.parse(localStorage.getItem("me"))?.StudentId;
   const lecturerId = JSON.parse(localStorage.getItem("me"))?.LecturerId;
   useEffect(() => {
-    if (studentId)
-      getStudentBooks(token, 1).then((res) => {
-        setBooks(
-          res.data.map((item) => {
-            let bookId,
-              title,
-              subjectName,
-              path,
-              authorsName = [];
-            item.map((book) => {
-              bookId = book.id;
-              title = book.title;
-              subjectName = book.Subject.name;
-              path = book.path;
-              book.BookDetails.map((item) => {
-                authorsName.push(item.Author.name);
-              });
-            });
-            return { title, subjectName, path, bookId, authorsName };
-          })
-        );
+    if (studentId) {
+      getSemesterSubjectsByGroup(token).then((res) => {
+        const subjects = res.data.lessons.map((item) => {
+          const subjectId = item.SubjectId;
+          const subjectName = item.Subject.name;
+          return { subjectId, subjectName };
+        });
+        setSubjects(subjects);
+        setCurrentSemester(res.data.semester);
       });
-    else if (lecturerId) {
+    } else if (lecturerId) {
       getSubjects(token)
         .then((res) => {
           const subjects = res.data.map((item) => {
@@ -54,14 +45,13 @@ function User() {
         })
         .then((subjects) => {
           if (subjects.length > 0) {
-            getLecturerBooks(token, subjects[0].subjectId).then((res) => {
+            getBooksBySubjectId(token, subjects[0].subjectId).then((res) => {
               setBooks(
                 res.data.map((item) => {
                   const bookId = item.id;
                   const title = item.title;
                   const subjectName = item.Subject.name;
                   const path = item.path;
-                  const count = item.count;
                   const authorsName = item.BookDetails.map((item) => {
                     return item.Author.name;
                   });
@@ -70,7 +60,6 @@ function User() {
                     subjectName,
                     bookId,
                     path,
-
                     authorsName,
                   };
                 })
@@ -82,7 +71,7 @@ function User() {
   }, []);
   function handleSubjectBooks(id) {
     return function () {
-      getLecturerBooks(token, id).then((res) => {
+      getBooksBySubjectId(token, id).then((res) => {
         setBooks(
           res.data.map((item) => {
             const bookId = item.id;
@@ -99,29 +88,17 @@ function User() {
       });
     };
   }
-  function handleSemesterBooks(semester) {
+  function handleSemesterSubjects(semester) {
     return function () {
-      getStudentBooks(token, semester).then((res) => {
-        setBooks(
-          res.data.map((item) => {
-            let bookId,
-              title,
-              subjectName,
-              path,
-              authorsName = [];
-            item.map((book) => {
-              bookId = book.id;
-              title = book.title;
-              subjectName = book.Subject.name;
-              path = book.path;
-              book.BookDetails.map((item) => {
-                authorsName.push(item.Author.name);
-              });
-            });
-            return { title, subjectName, path, bookId, authorsName };
-          })
-        );
+      getSemesterSubjects(token, semester).then((res) => {
+        const subjects = res.data.map((item) => {
+          const subjectId = item.SubjectId;
+          const subjectName = item.Subject.name;
+          return { subjectId, subjectName };
+        });
+        setSubjects(subjects);
       });
+      setCurrentSemester(semester);
     };
   }
   function handleCartAdd(bookId) {
@@ -142,14 +119,14 @@ function User() {
         <div className="needslist">
           {studentId && (
             <>
-              <p onClick={handleSemesterBooks(1)}>I կիսամյակ</p>
-              <p onClick={handleSemesterBooks(2)}>II կիսամյակ</p>
-              <p onClick={handleSemesterBooks(3)}>III կիսամյակ</p>
-              <p onClick={handleSemesterBooks(4)}>IV կիսամյակ</p>
-              <p onClick={handleSemesterBooks(5)}>V կիսամյակ</p>
-              <p onClick={handleSemesterBooks(6)}>VI կիսամյակ</p>
-              <p onClick={handleSemesterBooks(7)}>VII կիսամյակ</p>
-              <p onClick={handleSemesterBooks(8)}>VIII կիսամյակ</p>
+              <p onClick={handleSemesterSubjects(1)}>I կիսամյակ</p>
+              <p onClick={handleSemesterSubjects(2)}>II կիսամյակ</p>
+              <p onClick={handleSemesterSubjects(3)}>III կիսամյակ</p>
+              <p onClick={handleSemesterSubjects(4)}>IV կիսամյակ</p>
+              <p onClick={handleSemesterSubjects(5)}>V կիսամյակ</p>
+              <p onClick={handleSemesterSubjects(6)}>VI կիսամյակ</p>
+              <p onClick={handleSemesterSubjects(7)}>VII կիսամյակ</p>
+              <p onClick={handleSemesterSubjects(8)}>VIII կիսամյակ</p>
             </>
           )}
           {lecturerId &&
@@ -160,43 +137,80 @@ function User() {
             })}
         </div>
         <div>
-          {books.map(({ title, subjectName, path, bookId, authorsName }) => {
-            return (
-              <div className="booklist">
-                <Link to={`/book1/${bookId}`}>
-                  <img src={book} alt={book} className="bookImg" />
-                </Link>
-                <div className="bookDescription">
-                  <p className="ptitle">{title}</p>
-                  <p className="psubject">{subjectName}</p>
-                  {authorsName.map((item) => {
-                    return <p>{item}</p>;
-                  })}
+          {lecturerId &&
+            books.map(({ title, subjectName, path, bookId, authorsName }) => {
+              return (
+                <div className="booklist">
+                  <Link to={`/book1/${bookId}`}>
+                    <img src={book} alt={book} className="bookImg" />
+                  </Link>
+                  <div className="bookDescription">
+                    <p className="ptitle">{title}</p>
+                    <p className="psubject">{subjectName}</p>
+                    {authorsName.map((item) => {
+                      return <p>{item}</p>;
+                    })}
 
-                  {/* {path && ( */}
-                  <div className="buttons">
-                    <button className="bookButton">
-                      <a
-                        href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    {/* {path && ( */}
+                    <div className="buttons">
+                      <button className="bookButton">
+                        <a
+                          href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Էլ․ տարբերակ
+                        </a>
+                      </button>
+                      {/* )} */}
+                      <button
+                        className="bookButton"
+                        onClick={handleCartAdd(bookId)}
                       >
-                        Էլ․ տարբերակ
-                      </a>
-                    </button>
-                    {/* )} */}
-                    <button
-                      className="bookButton"
-                      onClick={handleCartAdd(bookId)}
-                    >
-                      Պատվիրել
-                    </button>
+                        Պատվիրել
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
+        {studentId && (
+          <div className="subjects">
+            <h2>
+              {(() => {
+                switch (currentSemester) {
+                  case 1:
+                    return "I կիսամյակ";
+                  case 2:
+                    return "II կիսամյակ";
+                  case 3:
+                    return "III կիսամյակ";
+                  case 4:
+                    return "IV կիսամյակ";
+                  case 5:
+                    return "V կիսամյակ";
+                  case 6:
+                    return "VI կիսամյակ";
+                  case 7:
+                    return "VII կիսամյակ";
+                  case 8:
+                    return "VIII կիսամյակ";
+                }
+              })()}
+            </h2>
+            {subjects.map(({ subjectId, subjectName }) => {
+              return (
+                <Link to={`/subjectBooks/${subjectId}`}>
+                  <div className="subjectsElement">
+                    <img src={subject} alt={subject} />
+                    <p onClick={handleSubjectBooks(subjectId)}>{subjectName}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
     </>
   );

@@ -50,44 +50,8 @@ async function updateBook(id, state) {
     return { error };
   }
 }
-async function getStudentsBooks(StudentId, semester) {
-  try {
-    const student = await Student.findByPk(StudentId, {
-      attributes: ["group"],
-    });
-    const g = student.group.substr(3, 2);
-    const lessons = await Lesson.findAll({
-      attributes: ["SubjectId"],
-      where: { g, semester },
-    });
-    const booksPromises = lessons.map(async (lesson) => {
-      const books = await Book.findAll({
-        attributes: ["id", "title", "path", "count"],
-        where: { SubjectId: lesson.SubjectId },
-        include: [
-          {
-            model: Subject,
-            attributes: ["name"],
-          },
-          {
-            model: BookDetail,
-            attributes: ["id"],
-            include: {
-              model: Author,
-              attributes: ["name"],
-            },
-          },
-        ],
-      });
-      return books;
-    });
-    const books = await Promise.all(booksPromises);
-    return { books };
-  } catch (error) {
-    return { error };
-  }
-}
-async function getLecturersBooks(SubjectId) {
+
+async function getBooksBySubject(SubjectId) {
   try {
     const books = await Book.findAll({
       attributes: ["id", "title", "path", "count"],
@@ -115,6 +79,5 @@ async function getLecturersBooks(SubjectId) {
 module.exports = {
   takeBook,
   updateBook,
-  getStudentsBooks,
-  getLecturersBooks,
+  getBooksBySubject,
 };

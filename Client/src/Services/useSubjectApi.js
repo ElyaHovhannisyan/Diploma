@@ -1,11 +1,10 @@
 import axios from "axios";
 const useSubjectApi = () => {
-  const url = "/api/subjects";
   const getSubjects = async (token) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return axios(url, {
+    return axios("/api/subjects", {
       headers: headers,
     });
   };
@@ -13,13 +12,31 @@ const useSubjectApi = () => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return axios("api/allSubjects", {
+    return axios("/api/allSubjects", {
+      headers: headers,
+    });
+  };
+  const getSemesterSubjectsByGroup = async (token) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios("/api/currentSemesterSubjects", {
+      headers: headers,
+    });
+  };
+  const getSemesterSubjects = async (token, semester) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios(`/api/subjects/${semester}`, {
       headers: headers,
     });
   };
   return {
     getSubjects,
     getAllSubjects,
+    getSemesterSubjectsByGroup,
+    getSemesterSubjects,
   };
 };
 
