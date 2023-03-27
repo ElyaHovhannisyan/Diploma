@@ -6,6 +6,7 @@ import "../User/User.css";
 import "./StLecCart.css";
 import useCartApi from "../../Services/useCartApi";
 import useBookApi from "../../Services/useBookApi";
+import cart from "../../img/cartEmpty.png";
 
 function Cart() {
   const [books, setBooks] = useState([]);
@@ -38,23 +39,33 @@ function Cart() {
     <>
       <Navbar></Navbar>
       <div>
-        {books.map(({ title, subjectName, bookId }) => {
-          return (
-            <div className="booklist">
-              <Link to={`/book2/${bookId}`}>
-                <img src={book} alt={book} className="bookImg" />
-              </Link>
-              <p className="ptitle">{title}</p>
-              <p className="psubject">{subjectName}</p>
-              <button
-                className="deleteButton"
-                onClick={handleCartRemove(bookId)}
-              >
-                Չեղարկել
-              </button>
+        {books.length > 0 ? (
+          books.map(({ title, subjectName, bookId }) => {
+            return (
+              <div className="booklist">
+                <Link to={`/book2/${bookId}`}>
+                  <img src={book} alt={book} className="bookImg" />
+                </Link>
+                <p className="ptitle">{title}</p>
+                <p className="psubject">{subjectName}</p>
+                <button
+                  className="deleteButton"
+                  onClick={handleCartRemove(bookId)}
+                >
+                  Չեղարկել
+                </button>
+              </div>
+            );
+          })
+        ) : (
+          <div className="emptyOrderBg">
+            <div className="emptyOrder">
+              <img src={cart} alt="Empty order" />
+              <h3>Պատվիրվաած գրքեր չկան!</h3>
+              <p>Դուք չունեք գրքեր, որոնք պետք է վերցնեք գրադարանից</p>
             </div>
-          );
-        })}
+          </div>
+        )}
       </div>
     </>
   );

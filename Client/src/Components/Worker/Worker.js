@@ -5,6 +5,7 @@ import "./Worker.css";
 import accept from "../../img/icons8-checkmark-48.png";
 import useOrderApi from "../../Services/useOrderApi";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 function Worker() {
   const navigate = useNavigate();
   const [carts, setCarts] = useState([]);
@@ -39,7 +40,16 @@ function Worker() {
   };
   const handleImageClick = (index, userId, bookId) => {
     if (bookNumber[index].bookNumber.trim() === "") {
-      alert("Please enter a book number.");
+      Swal.fire({
+        icon: "warning",
+        title: "Մուտքագրել գրքի համարը",
+        iconColor: "#850c23",
+        confirmButtonColor: "#850c23",
+        confirmButtonText: "Լավ",
+        customClass: {
+          title: "my-swal-title-class",
+        },
+      });
       return;
     }
     addOrder(token, bookId, bookNumber[index].bookNumber, userId).then(

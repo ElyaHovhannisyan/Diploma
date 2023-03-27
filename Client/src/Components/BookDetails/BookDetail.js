@@ -5,6 +5,7 @@ import useBookApi from "../../Services/useBookApi";
 import useCartApi from "../../Services/useCartApi";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function BookDetail(props) {
   const navigate = useNavigate();
@@ -58,8 +59,18 @@ function BookDetail(props) {
   } = books;
   function handleCartAdd(bookId) {
     addCart(token, bookId).then((response) => {
-      if (response.data.message) alert(response.data.message);
-      else {
+      if (response.data.message) {
+        Swal.fire({
+          icon: "warning",
+          title: response.data.message,
+          iconColor: "#850c23",
+          confirmButtonColor: "#850c23",
+          confirmButtonText: "Լավ",
+          customClass: {
+            title: "my-swal-title-class",
+          },
+        });
+      } else {
         putBook(token, bookId, "-");
         navigate("/cart");
       }

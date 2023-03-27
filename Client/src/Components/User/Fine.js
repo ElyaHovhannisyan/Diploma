@@ -2,27 +2,10 @@ import Navbar from "../Navbar/Navbar";
 import book from "../../img/book.png";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import order from "../../img/order.png";
-import "./Order.css";
-import useOrderApi from "../../Services/useOrderApi";
+import notice from "../../img/notice.png";
 
-function Order() {
+function Fine() {
   const [books, setBooks] = useState([]);
-  const { getOrder } = useOrderApi();
-  const token = JSON.parse(localStorage.getItem("me"))?.token;
-  useEffect(() => {
-    getOrder(token).then((res) => {
-      setBooks(
-        res.data.map((item) => {
-          const { Book } = item;
-          const bookId = Book.id;
-          const title = Book.title;
-          const subjectName = Book.Subject.name;
-          return { title, subjectName, bookId };
-        })
-      ).then();
-    });
-  }, []);
 
   return (
     <>
@@ -43,9 +26,9 @@ function Order() {
         ) : (
           <div className="emptyOrderBg">
             <div className="emptyOrder">
-              <img src={order} alt="Empty order" />
-              <h3>Հաստատված գրքեր չկան!</h3>
-              <p>Դուք չունեք գրքեր, որոնք վերցրել եք գրադարանից</p>
+              <img src={notice} alt="Empty fine notice" />
+              <h3>Տուգանքներ չկան!</h3>
+              <p>Դուք չունեք գրքեր, որոնք չեք հանձնել ժամանակին</p>
             </div>
           </div>
         )}
@@ -54,4 +37,4 @@ function Order() {
   );
 }
 
-export default Order;
+export default Fine;
