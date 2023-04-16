@@ -12,7 +12,7 @@ function Subject() {
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
   const [subjects, setSubjects] = useState([]);
-  const [activeColor, setActiveColor] = useState("");
+  const [activeColor, setActiveColor] = useState(0);
   const { getBooksBySubjectId, putBook } = useBookApi();
   const { addCart } = useCartApi();
   const { getAllSubjects } = useSubjectApi();
@@ -41,12 +41,13 @@ function Subject() {
                 const authorsName = item.BookDetails.map((item) => {
                   return item.Author.name;
                 });
+                const authorName = authorsName[0];
                 return {
                   title,
                   subjectName,
                   bookId,
                   path,
-                  authorsName,
+                  authorName,
                 };
               })
             );
@@ -68,7 +69,14 @@ function Subject() {
             const authorsName = item.BookDetails.map((item) => {
               return item.Author.name;
             });
-            return { title, subjectName, bookId, path, authorsName };
+            const authorName = authorsName[0];
+            return {
+              title,
+              subjectName,
+              bookId,
+              path,
+              authorName,
+            };
           })
         );
       });
@@ -114,7 +122,7 @@ function Subject() {
           })}
         </div>
         <div>
-          {books.map(({ title, subjectName, path, bookId, authorsName }) => {
+          {books.map(({ title, subjectName, path, bookId, authorName }) => {
             return (
               <div className="booklist">
                 <Link to={`/book1/${bookId}`}>
@@ -123,29 +131,27 @@ function Subject() {
                 <div className="bookDescription">
                   <p className="ptitle">{title}</p>
                   <p className="psubject">{subjectName}</p>
-                  {authorsName.map((item) => {
-                    return <p>{item}</p>;
-                  })}
+                  <p>{authorName}</p>
 
-                  {/* {path && ( */}
-                  <div className="buttons">
-                    <button className="bookButton">
-                      <a
-                        href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                  {path && (
+                    <div className="buttons">
+                      <button className="bookButton leftButton">
+                        <a
+                          href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Էլ․ տարբերակ
+                        </a>
+                      </button>
+                      <button
+                        className="bookButton"
+                        onClick={handleCartAdd(bookId)}
                       >
-                        Էլ․ տարբերակ
-                      </a>
-                    </button>
-                    {/* )} */}
-                    <button
-                      className="bookButton"
-                      onClick={handleCartAdd(bookId)}
-                    >
-                      Պատվիրել
-                    </button>
-                  </div>
+                        Պատվիրել
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             );

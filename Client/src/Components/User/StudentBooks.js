@@ -26,12 +26,13 @@ function StudentBooks() {
           const authorsName = item.BookDetails.map((item) => {
             return item.Author.name;
           });
+          const authorName = authorsName[0];
           return {
             title,
             subjectName,
             bookId,
             path,
-            authorsName,
+            authorName,
           };
         })
       );
@@ -63,7 +64,7 @@ function StudentBooks() {
     <>
       <Navbar></Navbar>
       <div>
-        {books.map(({ title, subjectName, path, bookId, authorsName }) => {
+        {books.map(({ title, subjectName, path, bookId, authorName }) => {
           return (
             <div className="booklist">
               <Link to={`/book1/${bookId}`}>
@@ -72,12 +73,10 @@ function StudentBooks() {
               <div className="bookDescription">
                 <p className="ptitle">{title}</p>
                 <p className="psubject">{subjectName}</p>
-                {authorsName.map((item) => {
-                  return <p>{item}</p>;
-                })}
+                <p>{authorName}</p>
                 <div className="buttons">
                   {path && (
-                    <button className="bookButton">
+                    <button className="bookButton leftButton">
                       <a
                         href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
                         target="_blank"

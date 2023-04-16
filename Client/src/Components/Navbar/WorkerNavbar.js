@@ -41,6 +41,15 @@ function WorkerNavbar() {
           >
             Տուգանքներ
           </NavLink>
+          <NavLink
+            to="/bookChange"
+            className="user book"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            Գրքեր
+          </NavLink>
         </div>
         <div className="navbarRight">
           <NavLink

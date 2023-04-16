@@ -69,7 +69,6 @@ const getCartContent = async (UserId) => {
 
 const deleteCartContent = async (UserId, bookId) => {
   try {
-    console.log(UserId);
     const cart = await Cart.findOne({
       where: { UserId },
     });

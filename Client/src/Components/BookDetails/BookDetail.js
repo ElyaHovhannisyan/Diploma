@@ -101,31 +101,32 @@ function BookDetail(props) {
               </p>
               <p>{pageCount} էջ</p>
               <p>Առկա է՝ {count}</p>
-              {/* {path && ( */}
-              <div className="buttons">
-                <button className="bookButton">
-                  <a
-                    href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+              {path && (
+                <div className="buttons">
+                  <button className="bookButton leftButton">
+                    <a
+                      href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Էլ․ տարբերակ
+                    </a>
+                  </button>
+
+                  <button
+                    className="bookButton"
+                    onClick={() => {
+                      if (props.text === "Պատվիրել") {
+                        handleCartAdd(bookId);
+                      } else {
+                        handleCartRemove(bookId);
+                      }
+                    }}
                   >
-                    Էլ․ տարբերակ
-                  </a>
-                </button>
-                {/* )} */}
-                <button
-                  className="bookButton"
-                  onClick={() => {
-                    if (props.text === "Պատվիրել") {
-                      handleCartAdd(bookId);
-                    } else {
-                      handleCartRemove(bookId);
-                    }
-                  }}
-                >
-                  {props.text}
-                </button>
-              </div>
+                    {props.text}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

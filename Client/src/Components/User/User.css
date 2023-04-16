@@ -72,6 +72,10 @@ h2 {
     color: #ffffff99;
     margin-top: 10px;
   }
+  .leftButton
+  {
+    margin-right: 10px;
+  }
   .bookButton:hover {
     text-decoration: none;
     box-shadow:4px 4px #babaae;
@@ -84,7 +88,7 @@ h2 {
    .buttons
    {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
    }
 
 .my-swal-title-class {
@@ -94,6 +98,11 @@ h2 {
 .swal2-confirm:focus {
   outline: none !important;
   box-shadow: none!important;
+}
+
+.active{
+  color:  rgb(133,12,35)!important;
+  font-weight: bold;
 }
 
 

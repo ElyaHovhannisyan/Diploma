@@ -15,6 +15,7 @@ function User() {
   const [books, setBooks] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [currentSemester, setCurrentSemester] = useState("");
+  const [activeColor, setActiveColor] = useState("");
   const { getBooksBySubjectId, putBook } = useBookApi();
   const { addCart } = useCartApi();
   const { getSubjects, getSemesterSubjectsByGroup, getSemesterSubjects } =
@@ -32,6 +33,7 @@ function User() {
         });
         setSubjects(subjects);
         setCurrentSemester(res.data.semester);
+        setActiveColor(res.data.semester);
       });
     } else if (lecturerId) {
       getSubjects(token)
@@ -42,6 +44,7 @@ function User() {
             return { subjectId, subjectName };
           });
           setSubjects(subjects);
+          setActiveColor(0);
           return subjects;
         })
         .then((subjects) => {
@@ -56,12 +59,13 @@ function User() {
                   const authorsName = item.BookDetails.map((item) => {
                     return item.Author.name;
                   });
+                  const authorName = authorsName[0];
                   return {
                     title,
                     subjectName,
                     bookId,
                     path,
-                    authorsName,
+                    authorName,
                   };
                 })
               );
@@ -70,8 +74,9 @@ function User() {
         });
     }
   }, []);
-  function handleSubjectBooks(id) {
+  function handleSubjectBooks(id, index) {
     return function () {
+      setActiveColor(index);
       getBooksBySubjectId(token, id).then((res) => {
         setBooks(
           res.data.map((item) => {
@@ -79,11 +84,17 @@ function User() {
             const title = item.title;
             const subjectName = item.Subject.name;
             const path = item.path;
-            const count = item.count;
             const authorsName = item.BookDetails.map((item) => {
               return item.Author.name;
             });
-            return { title, subjectName, bookId, path, authorsName };
+            const authorName = authorsName[0];
+            return {
+              title,
+              subjectName,
+              bookId,
+              path,
+              authorName,
+            };
           })
         );
       });
@@ -91,6 +102,7 @@ function User() {
   }
   function handleSemesterSubjects(semester) {
     return function () {
+      setActiveColor(semester);
       getSemesterSubjects(token, semester).then((res) => {
         const subjects = res.data.map((item) => {
           const subjectId = item.SubjectId;
@@ -130,26 +142,72 @@ function User() {
         <div className="needslist">
           {studentId && (
             <>
-              <p onClick={handleSemesterSubjects(1)}>I կիսամյակ</p>
-              <p onClick={handleSemesterSubjects(2)}>II կիսամյակ</p>
-              <p onClick={handleSemesterSubjects(3)}>III կիսամյակ</p>
-              <p onClick={handleSemesterSubjects(4)}>IV կիսամյակ</p>
-              <p onClick={handleSemesterSubjects(5)}>V կիսամյակ</p>
-              <p onClick={handleSemesterSubjects(6)}>VI կիսամյակ</p>
-              <p onClick={handleSemesterSubjects(7)}>VII կիսամյակ</p>
-              <p onClick={handleSemesterSubjects(8)}>VIII կիսամյակ</p>
+              <p
+                onClick={handleSemesterSubjects(1)}
+                className={activeColor === 1 ? "active" : ""}
+              >
+                I կիսամյակ
+              </p>
+              <p
+                onClick={handleSemesterSubjects(2)}
+                className={activeColor === 2 ? "active" : ""}
+              >
+                II կիսամյակ
+              </p>
+              <p
+                onClick={handleSemesterSubjects(3)}
+                className={activeColor === 3 ? "active" : ""}
+              >
+                III կիսամյակ
+              </p>
+              <p
+                onClick={handleSemesterSubjects(4)}
+                className={activeColor === 4 ? "active" : ""}
+              >
+                IV կիսամյակ
+              </p>
+              <p
+                onClick={handleSemesterSubjects(5)}
+                className={activeColor === 5 ? "active" : ""}
+              >
+                V կիսամյակ
+              </p>
+              <p
+                onClick={handleSemesterSubjects(6)}
+                className={activeColor === 6 ? "active" : ""}
+              >
+                VI կիսամյակ
+              </p>
+              <p
+                onClick={handleSemesterSubjects(7)}
+                className={activeColor === 7 ? "active" : ""}
+              >
+                VII կիսամյակ
+              </p>
+              <p
+                onClick={handleSemesterSubjects(8)}
+                className={activeColor === 8 ? "active" : ""}
+              >
+                VIII կիսամյակ
+              </p>
             </>
           )}
           {lecturerId &&
-            subjects.map(({ subjectId, subjectName }) => {
+            subjects.map(({ subjectId, subjectName }, index) => {
               return (
-                <p onClick={handleSubjectBooks(subjectId)}>{subjectName}</p>
+                <p
+                  onClick={handleSubjectBooks(subjectId, index)}
+                  key={index}
+                  className={activeColor === index ? "active" : ""}
+                >
+                  {subjectName}
+                </p>
               );
             })}
         </div>
         <div>
           {lecturerId &&
-            books.map(({ title, subjectName, path, bookId, authorsName }) => {
+            books.map(({ title, subjectName, path, bookId, authorName }) => {
               return (
                 <div className="booklist">
                   <Link to={`/book1/${bookId}`}>
@@ -158,12 +216,10 @@ function User() {
                   <div className="bookDescription">
                     <p className="ptitle">{title}</p>
                     <p className="psubject">{subjectName}</p>
-                    {authorsName.map((item) => {
-                      return <p>{item}</p>;
-                    })}
+                    <p>{authorName}</p>
                     <div className="buttons">
                       {path && (
-                        <button className="bookButton">
+                        <button className="bookButton leftButton">
                           <a
                             href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
                             target="_blank"
@@ -206,6 +262,8 @@ function User() {
                     return "VII կիսամյակ";
                   case 8:
                     return "VIII կիսամյակ";
+                  default:
+                    return "Something wrong";
                 }
               })()}
             </h2>

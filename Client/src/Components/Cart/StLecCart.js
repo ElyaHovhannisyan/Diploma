@@ -61,7 +61,7 @@ function Cart() {
           <div className="emptyOrderBg">
             <div className="emptyOrder">
               <img src={cart} alt="Empty order" />
-              <h3>Պատվիրվաած գրքեր չկան!</h3>
+              <h3>Պատվիրված գրքեր չկան!</h3>
               <p>Դուք չունեք գրքեր, որոնք պետք է վերցնեք գրադարանից</p>
             </div>
           </div>

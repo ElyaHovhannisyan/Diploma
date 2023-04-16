@@ -6,6 +6,8 @@ import accept from "../../img/icons8-checkmark-48.png";
 import useOrderApi from "../../Services/useOrderApi";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import searchIcon from "../../img/search.png";
+
 function Worker() {
   const navigate = useNavigate();
   const [carts, setCarts] = useState([]);
@@ -62,6 +64,12 @@ function Worker() {
   return (
     <>
       <WorkerNavbar />
+      <div className="searchLine">
+        <button className="searchUser">
+          <input className="usernameInput" placeholder="Օգտանուն․․․" />
+          <img src={searchIcon} alt="searchIcon"></img>
+        </button>
+      </div>
       <div className="carts">
         {carts.map(
           ({ title, subjectName, bookId, userId, name, surname }, index) => {

@@ -22,7 +22,7 @@
 }
 .navbar a:hover{
   text-decoration: none;
-  color:  rgb(133,12,35);
+  color:  rgb(133,12,35)!important;
   font-weight: bold;
 }
 .active{
@@ -47,10 +47,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
-}
-.search span {
-  text-decoration: none;
 }
 
 .search img {
@@ -69,7 +65,6 @@
 .navbarRight {
   display: flex;
   align-items: center;
-  /* margin-right: 60px; */
 }
 
 .navbarRight .user.logout {

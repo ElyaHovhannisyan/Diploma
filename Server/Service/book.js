@@ -35,7 +35,6 @@ async function updateBook(id, state) {
   try {
     const b = await Book.findByPk(id);
     let count = b.count;
-    console.log(state);
     if (state === "+") count = count + 1;
     else if (state === "-") count = count - 1;
     const book = await Book.update(

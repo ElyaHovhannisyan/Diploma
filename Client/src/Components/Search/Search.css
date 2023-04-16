@@ -1,0 +1,18 @@
+.searchBody
+{
+    width: 100%;
+    min-height: 578px;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center; 
+    text-align: center;
+    position: relative;
+}
+.searchForm
+{
+    background-color: rgb(133,12,35);
+}
+input::placeholder {
+    text-align: center;
+  }
