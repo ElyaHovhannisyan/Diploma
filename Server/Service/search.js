@@ -8,6 +8,8 @@ const { sequelize } = require("../dbConfig");
 const { CartAssignment } = require("../Models/CartAssignment");
 const { Order } = require("../Models/Order");
 const { Cart } = require("../Models/Cart");
+const { Student } = require("../Models/Students");
+const { Lecturer } = require("../Models/Lecturer");
 
 const getBooks = async (title, date, subjectName, authorName) => {
   try {
@@ -70,14 +72,34 @@ const getCarts = async (username) => {
       where: {
         CartId: cart.id,
       },
-      include: {
-        model: Book,
-        attributes: ["id", "title", "SubjectId"],
-        include: {
-          model: Subject,
-          attributes: ["name"],
+      include: [
+        {
+          model: Book,
+          attributes: ["id", "title", "SubjectId"],
+          include: {
+            model: Subject,
+            attributes: ["name"],
+          },
         },
-      },
+        {
+          model: Cart,
+          attributes: ["UserId"],
+          include: {
+            model: User,
+            attributes: ["StudentId", "LecturerId"],
+            include: [
+              {
+                model: Student,
+                attributes: ["name", "surname"],
+              },
+              {
+                model: Lecturer,
+                attributes: ["name", "surname"],
+              },
+            ],
+          },
+        },
+      ],
       attributes: ["CartId"],
     });
     return { carts };
@@ -97,15 +119,31 @@ const getOrders = async (username) => {
       where: {
         UserId: user.id,
       },
-      include: {
-        model: Book,
-        attributes: ["id", "title", "SubjectId"],
-        include: {
-          model: Subject,
-          attributes: ["name"],
+      include: [
+        {
+          model: Book,
+          attributes: ["id", "title", "SubjectId"],
+          include: {
+            model: Subject,
+            attributes: ["name"],
+          },
         },
-      },
-      attributes: ["id"],
+        {
+          model: User,
+          attributes: ["StudentId", "LecturerId"],
+          include: [
+            {
+              model: Student,
+              attributes: ["name", "surname"],
+            },
+            {
+              model: Lecturer,
+              attributes: ["name", "surname"],
+            },
+          ],
+        },
+      ],
+      attributes: ["bookNumber", "UserId"],
     });
     return { orders };
   } catch (error) {

@@ -43,7 +43,6 @@ const searchCart = async (req, res) => {
 
 const searchOrder = async (req, res) => {
   username = req.body.username;
-
   const { error, orders, message } = await getOrders(username);
   if (error) {
     res.status(400).json({

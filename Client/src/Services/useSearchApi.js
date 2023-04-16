@@ -25,18 +25,26 @@ const useSearchApi = () => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return axios.post(url + "/cart", username, {
-      headers: headers,
-    });
+    return axios.post(
+      url + "/cart",
+      { username },
+      {
+        headers: headers,
+      }
+    );
   };
 
   const orderSearch = async (token, username) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return axios.post(url + "/order", username, {
-      headers: headers,
-    });
+    return axios.post(
+      url + "/order",
+      { username },
+      {
+        headers: headers,
+      }
+    );
   };
 
   return {

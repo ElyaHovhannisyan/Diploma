@@ -6,10 +6,8 @@ import accept from "../../img/icons8-checkmark-48.png";
 import useOrderApi from "../../Services/useOrderApi";
 import useDelieverApi from "../../Services/useDelieverApi";
 import useSearchApi from "../../Services/useSearchApi";
-// import { useForm } from "react-hook-form";
 
 function Orders() {
-  // const { register, handleSubmit } = useForm();
   const [orders, setOrders] = useState([]);
   const [shouldReload, setShouldReload] = useState(false);
   const { deleteOrder, getAllOrder } = useOrderApi();
@@ -42,11 +40,14 @@ function Orders() {
       });
       setOrders(newOrders);
     });
-  }, [[], shouldReload]);
+  }, []);
 
   const handleImageClick = (userId, bookId) => {
     addDeliever(token, bookId, userId);
     deleteOrder(token, bookId, userId).then(setShouldReload(true));
+    setOrders(
+      orders.filter((item) => item.bookId !== bookId || item.userId !== userId)
+    );
   };
 
   const handleSearchClick = () => {
@@ -90,7 +91,6 @@ function Orders() {
             type="text"
             id="username"
           />
-
           <img
             src={searchIcon}
             alt="searchIcon"
