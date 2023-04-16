@@ -12,4 +12,5 @@ module.exports = {
   Cart,
   CartAssignment,
   Fine,
+  User,
 };

@@ -27,7 +27,7 @@ function Order() {
   return (
     <>
       <Navbar></Navbar>
-      <div>
+      <div className="body">
         {books.length > 0 ? (
           books.map(({ title, subjectName, bookId }) => {
             return (

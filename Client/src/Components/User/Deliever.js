@@ -25,7 +25,7 @@ function Deliever() {
   return (
     <>
       <Navbar></Navbar>
-      <div>
+      <div className="body">
         {books.map(({ title, subjectName, bookId }) => {
           return (
             <div className="booklist">
