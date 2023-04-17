@@ -3,10 +3,26 @@ import book from "../../img/book.png";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import notice from "../../img/notice.png";
+import useFineApi from "../../Services/useFineApi";
 
 function Fine() {
   const [books, setBooks] = useState([]);
-
+  const { getFine } = useFineApi();
+  const token = JSON.parse(localStorage.getItem("me"))?.token;
+  useEffect(() => {
+    getFine(token).then((res) => {
+      console.log(res);
+      setBooks(
+        res.data.map((item) => {
+          const { Book } = item.Order;
+          const bookId = Book.id;
+          const title = Book.title;
+          const subjectName = Book.Subject.name;
+          return { title, subjectName, bookId };
+        })
+      ).then();
+    });
+  }, []);
   return (
     <>
       <Navbar></Navbar>

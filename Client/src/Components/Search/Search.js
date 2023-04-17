@@ -1,6 +1,7 @@
 import Navbar from "../Navbar/Navbar";
 import "./Search.css";
 import book from "../../img/book.png";
+import back from "../../img/back.png";
 import useBookApi from "../../Services/useBookApi";
 import useCartApi from "../../Services/useCartApi";
 import { useForm } from "react-hook-form";
@@ -12,7 +13,7 @@ import Swal from "sweetalert2";
 
 function Search() {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const { bookSearch } = useSearchApi();
   const [books, setBooks] = useState([]);
   const { putBook } = useBookApi();
@@ -22,6 +23,7 @@ function Search() {
     setBooks([]);
   }, []);
   const onSubmit = (data) => {
+    reset();
     bookSearch(token, data).then(
       (response) => {
         if (response.data.message) {
@@ -83,6 +85,9 @@ function Search() {
       });
     };
   }
+  function handleImageClick() {
+    setBooks([]);
+  }
   return (
     <>
       <Navbar />
@@ -114,39 +119,51 @@ function Search() {
             </div>
           </form>
         ) : (
-          books.map(({ title, subjectName, path, bookId, authorName }) => {
-            return (
-              <div className="booklist">
-                <Link to={`/book1/${bookId}`}>
-                  <img src={book} alt={book} className="bookImg" />
-                </Link>
-                <div className="bookDescription">
-                  <p className="ptitle">{title}</p>
-                  <p className="psubject">{subjectName}</p>
-                  <p>{authorName}</p>
-                  <div className="buttons">
-                    {path && (
-                      <button className="bookButton leftButton">
-                        <a
-                          href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
-                          target="_blank"
-                          rel="noopener noreferrer"
+          <>
+            <div className="imgDiv">
+              <img
+                src={back}
+                alt={back}
+                className="backImg"
+                onClick={handleImageClick}
+              />
+            </div>
+            {books.map(({ title, subjectName, path, bookId, authorName }) => {
+              return (
+                <>
+                  <div className="booklist searchlist">
+                    <Link to={`/book1/${bookId}`}>
+                      <img src={book} alt={book} className="bookImg" />
+                    </Link>
+                    <div className="bookDescription">
+                      <p className="ptitle">{title}</p>
+                      <p className="psubject">{subjectName}</p>
+                      <p>{authorName}</p>
+                      <div className="buttons">
+                        {path && (
+                          <button className="bookButton leftButton">
+                            <a
+                              href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Էլ․ տարբերակ
+                            </a>
+                          </button>
+                        )}
+                        <button
+                          className="bookButton"
+                          onClick={handleCartAdd(bookId)}
                         >
-                          Էլ․ տարբերակ
-                        </a>
-                      </button>
-                    )}
-                    <button
-                      className="bookButton"
-                      onClick={handleCartAdd(bookId)}
-                    >
-                      Պատվիրել
-                    </button>
+                          Պատվիրել
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            );
-          })
+                </>
+              );
+            })}
+          </>
         )}
       </div>
     </>

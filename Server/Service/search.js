@@ -10,6 +10,7 @@ const { Order } = require("../Models/Order");
 const { Cart } = require("../Models/Cart");
 const { Student } = require("../Models/Students");
 const { Lecturer } = require("../Models/Lecturer");
+const { Fine } = require("../Models/Fine");
 
 const getBooks = async (title, date, subjectName, authorName) => {
   try {
@@ -151,8 +152,54 @@ const getOrders = async (username) => {
     return { error };
   }
 };
+const getFines = async (username) => {
+  try {
+    const user = await User.findOne({
+      attributes: ["id"],
+      where: { username },
+    });
+    const fines = await Fine.findAll({
+      include: {
+        model: Order,
+        where: {
+          UserId: user.id,
+        },
+        include: [
+          {
+            model: Book,
+            attributes: ["id", "title", "SubjectId"],
+            include: {
+              model: Subject,
+              attributes: ["name"],
+            },
+          },
+          {
+            model: User,
+            attributes: ["StudentId", "LecturerId"],
+            include: [
+              {
+                model: Student,
+                attributes: ["name", "surname"],
+              },
+              {
+                model: Lecturer,
+                attributes: ["name", "surname"],
+              },
+            ],
+          },
+        ],
+        attributes: ["bookNumber", "UserId"],
+      },
+    });
+    return { fines };
+  } catch (error) {
+    console.log(error);
+    return { error };
+  }
+};
 module.exports = {
   getBooks,
   getCarts,
   getOrders,
+  getFines,
 };

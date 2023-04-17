@@ -4,22 +4,25 @@ import WorkerNavbar from "../Navbar/WorkerNavbar";
 import "./Worker.css";
 import accept from "../../img/icons8-checkmark-48.png";
 import useOrderApi from "../../Services/useOrderApi";
+import useFineApi from "../../Services/useFineApi";
 import useDelieverApi from "../../Services/useDelieverApi";
 import useSearchApi from "../../Services/useSearchApi";
 
-function Orders() {
-  const [orders, setOrders] = useState([]);
-  const { deleteOrder, getAllOrder } = useOrderApi();
+function Fines() {
+  const [fines, setFines] = useState([]);
+  const { deleteOrder } = useOrderApi();
+  const { getAllFine } = useFineApi();
   const { addDeliever } = useDelieverApi();
-  const { orderSearch } = useSearchApi();
+  const { fineSearch } = useSearchApi();
+
   const token = JSON.parse(localStorage.getItem("me"))?.token;
   useEffect(() => {
-    getAllOrder(token).then((res) => {
-      const newOrders = res.data.map((item) => {
-        const bookNumber = item.bookNumber;
-        const { Book } = item;
-        const { User } = item;
-        const userId = item.UserId;
+    getAllFine(token).then((res) => {
+      const newFines = res.data.map((item) => {
+        const bookNumber = item.Order.bookNumber;
+        const { Book } = item.Order;
+        const { User } = item.Order;
+        const userId = item.Order.UserId;
         const bookId = Book.id;
         const title = Book.title;
         const subjectName = Book.Subject.name;
@@ -37,27 +40,27 @@ function Orders() {
           bookNumber,
         };
       });
-      setOrders(newOrders);
+      setFines(newFines);
     });
   }, []);
 
   const handleImageClick = (userId, bookId) => {
     addDeliever(token, bookId, userId);
     deleteOrder(token, bookId, userId);
-    setOrders(
-      orders.filter((item) => item.bookId !== bookId || item.userId !== userId)
+    setFines(
+      fines.filter((item) => item.bookId !== bookId || item.userId !== userId)
     );
   };
 
   const handleSearchClick = () => {
     const username = document.getElementById("username").value;
     document.getElementById("username").value = "";
-    orderSearch(token, username).then((res) => {
-      const newOrders = res.data.map((item) => {
-        const bookNumber = item.bookNumber;
-        const { Book } = item;
-        const { User } = item;
-        const userId = item.UserId;
+    fineSearch(token, username).then((res) => {
+      const newFines = res.data.map((item) => {
+        const bookNumber = item.Order.bookNumber;
+        const { Book } = item.Order;
+        const { User } = item.Order;
+        const userId = item.Order.UserId;
         const bookId = Book.id;
         const title = Book.title;
         const subjectName = Book.Subject.name;
@@ -75,7 +78,7 @@ function Orders() {
           bookNumber,
         };
       });
-      setOrders(newOrders);
+      setFines(newFines);
     });
   };
   return (
@@ -97,7 +100,7 @@ function Orders() {
         </button>
       </div>
       <div className="carts">
-        {orders.map(
+        {fines.map(
           ({
             title,
             subjectName,
@@ -133,4 +136,4 @@ function Orders() {
   );
 }
 
-export default Orders;
+export default Fines;

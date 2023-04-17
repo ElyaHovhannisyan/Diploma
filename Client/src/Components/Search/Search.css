@@ -16,3 +16,15 @@
 input::placeholder {
     text-align: center;
   }
+.backImg
+{
+    margin: 30px 0px 0px 30px;
+    cursor: pointer;
+}
+.searchlist{
+    margin: 0 10px 30px 
+}
+.imgDiv{
+    display: flex;
+    justify-content: start;
+}

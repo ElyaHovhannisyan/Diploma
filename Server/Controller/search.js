@@ -1,4 +1,9 @@
-const { getBooks, getCarts, getOrders } = require("../Service/search");
+const {
+  getBooks,
+  getCarts,
+  getOrders,
+  getFines,
+} = require("../Service/search");
 
 const searchBook = async (req, res) => {
   title = req.body.title;
@@ -57,8 +62,25 @@ const searchOrder = async (req, res) => {
   res.status(200).json(orders);
 };
 
+const searchFine = async (req, res) => {
+  username = req.body.username;
+  const { error, fines, message } = await getFines(username);
+  if (error) {
+    res.status(400).json({
+      error: error,
+    });
+  }
+  if (message) {
+    res.status(200).json({
+      message,
+    });
+  }
+  res.status(200).json(fines);
+};
+
 module.exports = {
   searchBook,
   searchCart,
   searchOrder,
+  searchFine,
 };

@@ -47,10 +47,24 @@ const useSearchApi = () => {
     );
   };
 
+  const fineSearch = async (token, username) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios.post(
+      url + "/fine",
+      { username },
+      {
+        headers: headers,
+      }
+    );
+  };
+
   return {
     bookSearch,
     cartSearch,
     orderSearch,
+    fineSearch,
   };
 };
 

@@ -66,7 +66,7 @@ function Worker() {
 
   const handleSearchClick = () => {
     const username = document.getElementById("username").value;
-    console.log(username);
+    document.getElementById("username").value = "";
     cartSearch(token, username).then((res) => {
       const newCarts = res.data.map((item) => {
         const { Book } = item;
