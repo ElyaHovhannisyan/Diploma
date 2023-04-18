@@ -129,12 +129,13 @@ function Subject() {
                   <img src={book} alt={book} className="bookImg" />
                 </Link>
                 <div className="bookDescription">
-                  <p className="ptitle">{title}</p>
+                  <div className="title">
+                    <p className="ptitle">{title}</p>
+                  </div>
                   <p className="psubject">{subjectName}</p>
                   <p>{authorName}</p>
-
-                  {path && (
-                    <div className="buttons">
+                  <div className="buttons">
+                    {path && (
                       <button className="bookButton leftButton">
                         <a
                           href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
@@ -144,14 +145,14 @@ function Subject() {
                           Էլ․ տարբերակ
                         </a>
                       </button>
-                      <button
-                        className="bookButton"
-                        onClick={handleCartAdd(bookId)}
-                      >
-                        Պատվիրել
-                      </button>
-                    </div>
-                  )}
+                    )}
+                    <button
+                      className="bookButton"
+                      onClick={handleCartAdd(bookId)}
+                    >
+                      Պատվիրել
+                    </button>
+                  </div>
                 </div>
               </div>
             );

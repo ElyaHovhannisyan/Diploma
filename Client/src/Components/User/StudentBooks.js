@@ -63,7 +63,7 @@ function StudentBooks() {
   return (
     <>
       <Navbar></Navbar>
-      <div>
+      <div className="body">
         {books.map(({ title, subjectName, path, bookId, authorName }) => {
           return (
             <div className="booklist">

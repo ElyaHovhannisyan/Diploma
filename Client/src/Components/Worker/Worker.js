@@ -56,8 +56,24 @@ function Worker() {
       });
       return;
     }
+    Swal.fire({
+      icon: "success",
+      title: "Հաստատված է",
+      iconColor: "#850c23",
+      confirmButtonColor: "#850c23",
+      confirmButtonText: "Լավ",
+      customClass: {
+        title: "my-swal-title-class",
+      },
+    });
     addOrder(token, bookId, bookNumber[index].bookNumber, userId).then(
-      deleteCart(token, bookId, userId).then(navigate("/orders"))
+      deleteCart(token, bookId, userId).then(
+        setCarts(
+          carts.filter(
+            (item) => item.bookId !== bookId || item.userId !== userId
+          )
+        )
+      )
     );
     const newBookNumber = [...bookNumber];
     newBookNumber[index].bookNumber = "";

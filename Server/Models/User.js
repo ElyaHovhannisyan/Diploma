@@ -40,11 +40,23 @@ const User = sequelize.define(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      indexes: [
+        {
+          unique: true,
+          fields: ["username"],
+        },
+      ],
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      indexes: [
+        {
+          unique: true,
+          fields: ["email"],
+        },
+      ],
     },
     password: {
       type: DataTypes.STRING,

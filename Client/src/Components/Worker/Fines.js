@@ -7,6 +7,8 @@ import useOrderApi from "../../Services/useOrderApi";
 import useFineApi from "../../Services/useFineApi";
 import useDelieverApi from "../../Services/useDelieverApi";
 import useSearchApi from "../../Services/useSearchApi";
+import notice from "../../img/notice.png";
+import "./Fine.css";
 
 function Fines() {
   const [fines, setFines] = useState([]);
@@ -100,36 +102,45 @@ function Fines() {
         </button>
       </div>
       <div className="carts">
-        {fines.map(
-          ({
-            title,
-            subjectName,
-            bookId,
-            userId,
-            name,
-            surname,
-            bookNumber,
-          }) => {
-            return (
-              <>
-                <div className="listElement">
-                  <p>{title}</p>
-                  <p>{subjectName}</p>
-                  <p>
-                    {name} {surname}
-                  </p>
+        {fines.length > 0 ? (
+          fines.map(
+            ({
+              title,
+              subjectName,
+              bookId,
+              userId,
+              name,
+              surname,
+              bookNumber,
+            }) => {
+              return (
+                <>
+                  <div className="listElement">
+                    <p>{title}</p>
+                    <p>{subjectName}</p>
+                    <p>
+                      {name} {surname}
+                    </p>
 
-                  <p>{bookNumber}</p>
-                  <img
-                    src={accept}
-                    alt={accept}
-                    className="acceptImg"
-                    onClick={() => handleImageClick(userId, bookId)}
-                  />
-                </div>
-              </>
-            );
-          }
+                    <p>{bookNumber}</p>
+                    <img
+                      src={accept}
+                      alt={accept}
+                      className="acceptImg"
+                      onClick={() => handleImageClick(userId, bookId)}
+                    />
+                  </div>
+                </>
+              );
+            }
+          )
+        ) : (
+          <div className="emptyFineBg">
+            <div className="emptyFine">
+              <img src={notice} alt="Empty fine notice" />
+              <h3>Տուգանքներ չկան!</h3>
+            </div>
+          </div>
         )}
       </div>
     </>

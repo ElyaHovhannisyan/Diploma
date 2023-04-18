@@ -13,6 +13,12 @@ const Subject = sequelize.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      indexes: [
+        {
+          unique: true,
+          fields: ["name"],
+        },
+      ],
     },
   },
   {

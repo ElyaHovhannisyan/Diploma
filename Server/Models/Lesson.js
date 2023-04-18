@@ -29,6 +29,13 @@ const Lesson = sequelize.define(
     },
   },
   {
+    indexes: [
+      {
+        fields: ["groupNumber", "semester"],
+      },
+    ],
+  },
+  {
     createdAt: false,
     updatedAt: false,
     timestamps: false,

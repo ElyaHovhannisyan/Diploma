@@ -9,12 +9,13 @@
 	  border-radius: 30px;
 	  box-shadow: 0 0 10px rgb(0 0 0 / 33%);
     background-color: rgba(0, 33, 71); 
-    padding: 15px 100px; 
+    padding: 15px 0px;
     font-size: 18px;
     color: #ffffff99;
     text-align: center;
     align-items: center;
     flex-direction: column; 
+    min-width: 20%;
 }
 .needslist p.active{
   color: rgb(133,12,35);
@@ -40,7 +41,8 @@ h2 {
     color: #ffffff99;
     text-align: center;
     margin-right: 10px;
-    width: 150px;
+    margin-bottom: 10px;
+    width: 160px;
     cursor: pointer;
 }
 
@@ -105,8 +107,19 @@ h2 {
   font-weight: bold;
 }
 
-
+.subjectName
+{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 50px;
+  padding-bottom: 20px;
+}
  
-
-    
+.title {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  padding-bottom: 10px;
+}
   

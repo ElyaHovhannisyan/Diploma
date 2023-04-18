@@ -1,0 +1,26 @@
+.bookBody{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:calc(100vh - 350px);
+}
+
+.change{
+    display: inline-block;
+    margin-right: 10px;
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgb(0 0 0 / 33%);
+    background-color:  rgb(133,12,35);
+    padding: 15px 25px;
+    width: 300px;
+    height: 193px;
+    font-size: 18px;
+    color: #ffffff99;
+    text-align: center;
+    cursor: pointer;
+}
+.i{
+    height: 100px;
+    display:flex;
+    justify-content: center;
+}

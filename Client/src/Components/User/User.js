@@ -214,7 +214,9 @@ function User() {
                     <img src={book} alt={book} className="bookImg" />
                   </Link>
                   <div className="bookDescription">
-                    <p className="ptitle">{title}</p>
+                    <div className="title">
+                      <p className="ptitle">{title}</p>
+                    </div>
                     <p className="psubject">{subjectName}</p>
                     <p>{authorName}</p>
                     <div className="buttons">
@@ -270,9 +272,14 @@ function User() {
             {subjects.map(({ subjectId, subjectName }) => {
               return (
                 <Link to={`/subjectBooks/${subjectId}`}>
-                  <div className="subjectsElement">
+                  <div
+                    className="subjectsElement"
+                    onClick={handleSubjectBooks(subjectId)}
+                  >
                     <img src={subject} alt={subject} />
-                    <p onClick={handleSubjectBooks(subjectId)}>{subjectName}</p>
+                    <div className="subjectName">
+                      <p>{subjectName}</p>
+                    </div>
                   </div>
                 </Link>
               );

@@ -1,0 +1,21 @@
+.emptyFineBg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.emptyFine {
+    height: 35%;
+    width: 35%; 
+    background-color: rgba(133, 12, 35);
+    border-radius: 30px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #ffffff99;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

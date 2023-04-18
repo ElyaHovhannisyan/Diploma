@@ -14,6 +14,12 @@ const Book = sequelize.define(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
+      indexes: [
+        {
+          unique: true,
+          fields: ["title"],
+        },
+      ],
     },
     SubjectId: {
       type: DataTypes.INTEGER,
@@ -26,6 +32,12 @@ const Book = sequelize.define(
     date: {
       type: DataTypes.STRING,
       allowNull: false,
+      indexes: [
+        {
+          unique: true,
+          fields: ["date"],
+        },
+      ],
     },
     publisher: {
       type: DataTypes.STRING,

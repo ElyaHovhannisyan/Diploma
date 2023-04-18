@@ -6,6 +6,7 @@ import useCartApi from "../../Services/useCartApi";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import "./BookDetails.css";
 
 function BookDetail(props) {
   const navigate = useNavigate();
@@ -85,8 +86,8 @@ function BookDetail(props) {
     <>
       <Navbar></Navbar>
       <div className="main">
-        <div>
-          <div className="booklist">
+        <div className="details">
+          <div className="booklist detailList">
             <img src={book} alt={book} className="bookImg" />
             <div className="bookDescription">
               <p className="ptitle">{title}</p>
@@ -101,8 +102,8 @@ function BookDetail(props) {
               </p>
               <p>{pageCount} էջ</p>
               <p>Առկա է՝ {count}</p>
-              {path && (
-                <div className="buttons">
+              <div className="buttons">
+                {path && (
                   <button className="bookButton leftButton">
                     <a
                       href="https://libbook.s3.eu-north-1.amazonaws.com/Khndragirq.pdf"
@@ -112,21 +113,20 @@ function BookDetail(props) {
                       Էլ․ տարբերակ
                     </a>
                   </button>
-
-                  <button
-                    className="bookButton"
-                    onClick={() => {
-                      if (props.text === "Պատվիրել") {
-                        handleCartAdd(bookId);
-                      } else {
-                        handleCartRemove(bookId);
-                      }
-                    }}
-                  >
-                    {props.text}
-                  </button>
-                </div>
-              )}
+                )}
+                <button
+                  className="bookButton"
+                  onClick={() => {
+                    if (props.text === "Պատվիրել") {
+                      handleCartAdd(bookId);
+                    } else {
+                      handleCartRemove(bookId);
+                    }
+                  }}
+                >
+                  {props.text}
+                </button>
+              </div>
             </div>
           </div>
         </div>
